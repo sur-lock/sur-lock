@@ -1,75 +1,95 @@
-import { css } from "styled-components";
+import { css, DefaultTheme } from "styled-components";
 
-const fontWeight = {
-	regular: 400,
-	medium: 500,
-	bold: "bold",
+// 출처: https://dkje.github.io/2020/10/13/StyledComponents/
+const size = {
+	mobile: "425px",
+	tablet: "768px",
+	desktop: "1440px",
 };
 
-const theme = {
-	colors: {
-		black: "#000000",
-		white: "#ffffff",
+const colors = {
+	red: "#ff4d4d",
+	yellow: "#ffff4d",
+	blue: "#0099ff",
+};
+
+const lightThemeColors = {
+	...colors,
+	primary: "#333",
+	secondary: "#fff",
+	tertiary: "#808080",
+};
+
+const darkThemeColors = {
+	...colors,
+	primary: "#fff",
+	secondary: "#333",
+	tertiary: "#d4d0c4",
+};
+
+const defalutTheme: DefaultTheme = {
+	margins: {
+		sm: ".5rem",
+		base: "1rem",
+		lg: "2rem",
+		xl: "3rem",
 	},
-	flexCol: (justifyContent = "center", alignItems = "center") => css`
-		display: flex;
-		flex-direction: column;
-		justify-content: ${justifyContent};
-		align-items: ${alignItems};
-	`,
-	flexRow: (justifyContent = "center", alignItems = "center") => css`
-		display: flex;
-		flex-direction: row;
-		justify-content: ${justifyContent};
-		align-items: ${alignItems};
-	`,
-	font: {
-		n36m: css`
-			font-weight: ${fontWeight.medium};
-			font-size: 36px;
-			line-height: 48px;
+
+	paddings: {
+		sm: ".5rem",
+		base: "1rem",
+		lg: "2rem",
+		xl: "3rem",
+	},
+
+	fonts: {
+		family: {
+			base: `'Noto Sans KR', sans-serif`,
+			title: `'Merriweather', serif`,
+		},
+		size: {
+			sm: "1.4rem",
+			base: "1.6rem",
+			lg: "2rem",
+			xl: "2.5rem",
+			title: "6rem",
+		},
+		weight: {
+			light: 100,
+			normal: 400,
+			bold: 700,
+		},
+	},
+
+	device: {
+		mobile: `@media only screen and (max-width: ${size.mobile})`,
+		tablet: `@media only screen and (max-width: ${size.tablet})`,
+		desktop: `@media only screen and (max-width: ${size.desktop})`,
+	},
+
+	display: {
+		flexCol: (justifyContent = "center", alignItems = "center") => css`
+			display: flex;
+			flex-direction: column;
+			justify-content: ${justifyContent};
+			align-items: ${alignItems};
 		`,
-		n26b: css`
-			font-weight: ${fontWeight.bold};
-			font-size: 26px;
-			line-height: 38px;
-		`,
-		n20m: css`
-			font-weight: ${fontWeight.medium};
-			font-size: 20px;
-			line-height: 32px;
-		`,
-		n18b: css`
-			font-weight: ${fontWeight.bold};
-			font-size: 18px;
-			line-height: 26px;
-		`,
-		n16m: css`
-			font-weight: ${fontWeight.medium};
-			font-size: 16px;
-			line-height: 24px;
-		`,
-		n16r: css`
-			font-weight: ${fontWeight.regular};
-			font-size: 16px;
-			line-height: 24px;
-		`,
-		n14m: css`
-			font-weight: ${fontWeight.medium};
-			font-size: 14px;
-			line-height: 20px;
-		`,
-		n14r: css`
-			font-weight: ${fontWeight.regular};
-			font-size: 14px;
-			line-height: 20px;
-		`,
-		n12m: css`
-			font-weight: ${fontWeight.medium};
-			font-size: 12px;
-			line-height: 20px;
+		flexRow: (justifyContent = "center", alignItems = "center") => css`
+			display: flex;
+			flex-direction: row;
+			justify-content: ${justifyContent};
+			align-items: ${alignItems};
 		`,
 	},
 };
 
-export default theme;
+// 각 테마는 공통 변수와 함께, 각기 다른 색상 값들을 갖습니다.
+export const darkTheme = {
+	...defalutTheme,
+	colors: darkThemeColors,
+};
+
+export const lightTheme = {
+	...defalutTheme,
+	colors: lightThemeColors,
+};
