@@ -11,6 +11,7 @@ const colors = {
 	red: "#ff4d4d",
 	yellow: "#ffff4d",
 	blue: "#0099ff",
+	phantomBlue: "#35558a",
 };
 
 const lightThemeColors = {
