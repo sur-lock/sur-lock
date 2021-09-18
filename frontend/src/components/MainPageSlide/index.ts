@@ -1,3 +1,1 @@
-import FirstSlide from "./FirstSlide";
-
-export { FirstSlide };
+export { default } from "./FirstSlide";

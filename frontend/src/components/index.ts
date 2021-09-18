@@ -1,3 +1,4 @@
-import { FirstSlide } from "./MainPageSlide";
+import FirstSlide from "./MainPageSlide";
+import Header from "./Header";
 
-export { FirstSlide };
+export { FirstSlide, Header };
