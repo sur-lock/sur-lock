@@ -4,6 +4,7 @@ import { ThemeProvider } from "styled-components";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { MainPage } from "pages";
 import { darkTheme, lightTheme } from "style/theme";
+import { Header } from "components";
 
 export default function App(): ReactElement {
 	const [theme, setTheme] = useState(lightTheme);
@@ -16,6 +17,7 @@ export default function App(): ReactElement {
 		<ThemeProvider theme={theme}>
 			<GlobalStyle />
 			{/* <Header switchTheme={switchTheme} /> */}
+			<Header />
 			<Router>
 				<Switch>
 					<Route exact path="/" component={MainPage} />
