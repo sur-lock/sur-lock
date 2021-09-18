@@ -1,21 +1,47 @@
-import React, { ReactElement } from "react";
-import { setUser, useAppDispatch, useAppSelector } from "store";
+import React from "react";
+import styled from "styled-components";
+import { FirstSlide } from "components";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-export default function MainPage(): ReactElement {
-	const loginedUser = useAppSelector(state => state.auth.user);
-	const dispatch = useAppDispatch();
+import "swiper/swiper.scss";
+import "swiper/components/pagination/pagination.scss";
 
+import SwiperCore, { Mousewheel, Pagination } from "swiper";
+
+SwiperCore.use([Mousewheel, Pagination]);
+
+export default function MainPage() {
 	return (
-		<>
-			<h1>A501 어쩌다 블록체인 조입니다</h1>
-			<button
-				type="button"
-				onClick={() =>
-					dispatch(setUser({ name: "홍길동", wallet: "dafnjason4516" }))
-				}
-			>
-				로그인
-			</button>
-		</>
+		<StyledSlider
+			// eslint-disable-next-line
+			direction={"vertical"}
+			slidesPerView={1}
+			// eslint-disable-next-line
+			mousewheel={true}
+			pagination={{
+				clickable: true,
+			}}
+			speed={1000}
+			className="mySwiper"
+		>
+			<SwiperSlide>
+				<FirstSlide />
+			</SwiperSlide>
+			<SwiperSlide>Slide 2</SwiperSlide>
+			<SwiperSlide>Slide 3</SwiperSlide>
+			<SwiperSlide>Slide 4</SwiperSlide>
+		</StyledSlider>
 	);
 }
+
+const StyledSlider = styled(Swiper)`
+	width: 100vw !important;
+	height: 100vh !important;
+
+	.swiper-slide {
+		text-align: center;
+		background: ${({ theme: { colors } }) => colors.phantomBlue};
+		font-size: ${({ theme: { fonts } }) => fonts.size.title};
+		${({ theme: { display } }) => display.flexRow()}
+	}
+`;
