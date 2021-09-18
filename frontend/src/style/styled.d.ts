@@ -47,5 +47,14 @@ declare module "styled-components" {
 				alignItems?: string,
 			) => FlattenSimpleInterpolation;
 		};
+		colors: {
+			primary: string;
+			secondary: string;
+			tertiary: string;
+			red: string;
+			blue: string;
+			yellow: string;
+			phantomBlue: string;
+		};
 	}
 }

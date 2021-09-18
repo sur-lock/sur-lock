@@ -28,7 +28,7 @@ const darkThemeColors = {
 	tertiary: "#d4d0c4",
 };
 
-const defalutTheme: DefaultTheme = {
+const defalutTheme = {
 	margins: {
 		sm: ".5rem",
 		base: "1rem",
@@ -85,12 +85,12 @@ const defalutTheme: DefaultTheme = {
 };
 
 // 각 테마는 공통 변수와 함께, 각기 다른 색상 값들을 갖습니다.
-export const darkTheme = {
+export const darkTheme: DefaultTheme = {
 	...defalutTheme,
 	colors: darkThemeColors,
 };
 
-export const lightTheme = {
+export const lightTheme: DefaultTheme = {
 	...defalutTheme,
 	colors: lightThemeColors,
 };
