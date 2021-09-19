@@ -35,7 +35,7 @@ const Wrapper = styled.header`
 	.header-inner {
 		${({ theme: { display } }) => display.flexRow("space-between")}
 		.logo {
-			font-size: ${({ theme: { fonts } }) => fonts.size.lg};
+			font-size: ${({ theme: { fonts } }) => fonts.size.base};
 			letter-spacing: 2px;
 			color: ${({ theme: { colors } }) => colors.secondary};
 		}
@@ -44,16 +44,14 @@ const Wrapper = styled.header`
 				margin: 0;
 				padding: 0;
 				display: flex;
+				font-size: ${({ theme: { fonts } }) => fonts.size.sm};
 				li {
 					list-style: none;
-					margin: 0 60px;
 					margin: 0 ${({ theme: { margins } }) => margins.xl};
 					&.btn {
 						a {
-							background: ${({ theme: { colors } }) => colors.primary};
-							color: ${({ theme: { colors } }) => colors.secondary};
-							font-weight: ${({ theme: { fonts } }) => fonts.weight.bold};
-							padding: ${({ theme: { paddings } }) => paddings.lg};
+							border: 1px solid white;
+							padding: ${({ theme: { paddings } }) => paddings.base};
 							border-radius: 10px;
 						}
 					}
