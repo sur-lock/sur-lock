@@ -16,14 +16,12 @@ export default function App(): ReactElement {
 	return (
 		<ThemeProvider theme={theme}>
 			<GlobalStyle />
-			{/* <Header switchTheme={switchTheme} /> */}
-			<Header />
+			<Header switchTheme={switchTheme} />
 			<Router>
 				<Switch>
 					<Route exact path="/" component={MainPage} />
 				</Switch>
 			</Router>
-			{/* <Footer /> */}
 		</ThemeProvider>
 	);
 }
