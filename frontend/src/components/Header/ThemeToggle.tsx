@@ -14,12 +14,22 @@ export default function ThemeToggle({ switchTheme }: ThemeToggleProps) {
 
 	return (
 		<Wrapper>
-			<Input
-				type="checkbox"
-				onClick={handleClick}
-				className="checkbox"
-				id="checkbox"
-			/>
+			{localStorage.getItem("theme") === "darkTheme" ? (
+				<Input
+					type="checkbox"
+					onClick={handleClick}
+					className="checkbox"
+					id="checkbox"
+					checked
+				/>
+			) : (
+				<Input
+					type="checkbox"
+					onClick={handleClick}
+					className="checkbox"
+					id="checkbox"
+				/>
+			)}
 			<CustomLabel htmlFor="checkbox" className="label">
 				<FontAwesomeIcon className="faSun" icon={faSun} />
 				<FontAwesomeIcon className="faMoon" icon={faMoon} />
