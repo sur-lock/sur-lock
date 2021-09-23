@@ -1,7 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import ThemeToggle from "./ThemeToggle";
 
-export default function Header() {
+interface HeaderProps {
+	switchTheme: () => void;
+}
+
+export default function Header({ switchTheme }: HeaderProps) {
 	return (
 		<Wrapper>
 			<div className="header-inner">
@@ -15,7 +20,7 @@ export default function Header() {
 							<a href="/">응답하기</a>
 						</li>
 						<li>
-							<a href="/">테마 토글</a>
+							<ThemeToggle switchTheme={switchTheme} />
 						</li>
 						<li className="btn">
 							<a href="/">로그인</a>
@@ -37,12 +42,10 @@ const Wrapper = styled.header`
 		.logo {
 			font-size: ${({ theme: { fonts } }) => fonts.size.base};
 			letter-spacing: 2px;
-			color: ${({ theme: { colors } }) => colors.secondary};
+			color: ${({ theme: { colors } }) => colors.primary};
 		}
 		nav {
 			ul {
-				margin: 0;
-				padding: 0;
 				display: flex;
 				font-size: ${({ theme: { fonts } }) => fonts.size.sm};
 				li {
@@ -50,7 +53,7 @@ const Wrapper = styled.header`
 					margin: 0 ${({ theme: { margins } }) => margins.xl};
 					&.btn {
 						a {
-							border: 1px solid white;
+							border: 1px solid ${({ theme: { colors } }) => colors.primary};
 							padding: ${({ theme: { paddings } }) => paddings.base};
 							border-radius: 10px;
 						}
@@ -58,7 +61,7 @@ const Wrapper = styled.header`
 					a {
 						text-transform: capitalize;
 						text-decoration: none;
-						color: ${({ theme: { colors } }) => colors.secondary};
+						color: ${({ theme: { colors } }) => colors.primary};
 					}
 				}
 			}

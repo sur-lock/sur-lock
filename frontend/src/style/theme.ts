@@ -16,16 +16,16 @@ const colors = {
 
 const lightThemeColors = {
 	...colors,
-	primary: "#333",
-	secondary: "#fff",
+	primary: "#ffffff",
+	secondary: "#000000",
 	tertiary: "#808080",
 };
 
 const darkThemeColors = {
 	...colors,
-	primary: "#fff",
-	secondary: "#333",
-	tertiary: "#d4d0c4",
+	primary: "#000000",
+	secondary: "#ffffff",
+	tertiary: "#808080",
 };
 
 const defalutTheme = {
