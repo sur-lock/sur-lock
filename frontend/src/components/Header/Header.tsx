@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import ThemeToggle from "./ThemeToggle";
+import ThemeToggle from "../ThemeToggle";
 
 interface HeaderProps {
 	switchTheme: () => void;
