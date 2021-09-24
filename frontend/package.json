@@ -13,6 +13,7 @@
 		"@types/node": "^12.0.0",
 		"@types/react": "^17.0.0",
 		"@types/react-dom": "^17.0.0",
+		"antd": "^4.16.13",
 		"drei": "1.5.3",
 		"lerp": "^1.0.3",
 		"node-sass": "5.0.0",
