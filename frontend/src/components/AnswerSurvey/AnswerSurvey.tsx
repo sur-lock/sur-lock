@@ -1,12 +1,6 @@
-import  React , { useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
-
 export default function AnswerSurvey() {
-
-	return (
-        <div>주관식</div>
-	);
+	return <div>주관식</div>;
 }
-
-
