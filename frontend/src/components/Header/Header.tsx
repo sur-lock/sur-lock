@@ -14,7 +14,7 @@ export default function Header({ switchTheme }: HeaderProps) {
 				<nav>
 					<ul>
 						<li>
-							<a href="/">설문생성</a>
+							<a href="/create">설문생성</a>
 						</li>
 						<li>
 							<a href="/">응답하기</a>
