@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import 'antd/dist/antd.css';
-import { Card } from 'antd'
+import { Card, Form, Input } from 'antd'
 
 
 interface Inputs {
@@ -15,16 +15,31 @@ interface Inputs {
 
 }
 
-const InputWIthLabel = ({label,name,placeholder,type} : Inputs) =>{
+const TitleInputWIthLabel = () =>{
 
         return( 
-        <Wrapper>
-
-            <Label>{label}</Label>
-            <Input name={name} placeholder={placeholder}  type={type} />
-    
-    
-        </Wrapper>
+            <Form
+      layout="vertical"
+      autoComplete="off"
+      size="large"
+    >
+      <FormWrapper style={{ overflow: 'hidden' }}>
+        <Form.Item
+          name="SurveyTitle"
+        >
+            <Label>설문 제목</Label>
+            <Input placeholder="설문 제목을 입력해주세요" />
+        </Form.Item>
+      </FormWrapper>
+      <FormWrapper style={{ overflow: 'hidden' }}>
+        <Form.Item
+          name="SurveyDiscription"
+        >
+            <Label>설문 설명</Label>
+            <Input placeholder="설문에 대한 설명을 입력해주세요" />
+        </Form.Item>
+      </FormWrapper>
+    </Form>
         );
    
 
@@ -36,8 +51,7 @@ export default function CreateSurvey() {
         <CardContainer>
             <Title>설문조사 생성</Title>
             <SurveyForm  >
-                <InputWIthLabel label="설문제목" name="SurveyTitle" placeholder="설문제목을 입력해 주세요"  type="text" />
-                <InputWIthLabel label="설문설명" name="SurveyDiscription" placeholder="설문의 간단한 설명을 입력해 주세요"  type="text" />
+                <TitleInputWIthLabel />
             </SurveyForm>
 
 
@@ -46,25 +60,24 @@ export default function CreateSurvey() {
 	);
 }
 
-const Wrapper = styled.div`
-    & + & {
-        margin-top: 1rem;
+const Label = styled.h1`
+
+    font-size : 3rem;
+    float : left;
+    margin-bottom : 10px;
+    coler : #fff;
+    span{
+        display : block;
     }
+
+`;
+const FormWrapper = styled.div`
+
+    font-size : 2rem;
+   
 `;
 
-const Label = styled.div`
-    float :left;
-    font-size: 5rem;
-    margin-bottom: 2rem;
-`;
 
-const Input = styled.input`
-    width: 100%;
-    outline: none;
-    font-size: 3rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-`;
 
 const CardContainer = styled.div`
 	width: 100vw !important;
