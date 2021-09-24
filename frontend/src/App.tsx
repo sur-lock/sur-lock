@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { useState } from "react";
 import { GlobalStyle } from "style/GlobalStyle";
 import { ThemeProvider } from "styled-components";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -11,7 +11,7 @@ const getTheme = () => {
 	return userTheme === "darkTheme" ? darkTheme : lightTheme;
 };
 
-export default function App(): ReactElement {
+export default function App() {
 	const [theme, setTheme] = useState(getTheme());
 
 	const switchTheme = () => {
