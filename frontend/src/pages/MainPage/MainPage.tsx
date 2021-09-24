@@ -10,7 +10,7 @@ import SwiperCore, { Mousewheel, Pagination } from "swiper";
 
 SwiperCore.use([Mousewheel, Pagination]);
 
-export default function MainPage() {
+export function MainPage() {
 	return (
 		<StyledSlider
 			// eslint-disable-next-line

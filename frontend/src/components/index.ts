@@ -1,5 +1,3 @@
-import FirstSlide from "./MainPageSlide";
-import Header from "./Header";
-import ThemeToggle from "./ThemeToggle";
-
-export { FirstSlide, Header, ThemeToggle };
+export * from "./MainPageSlide";
+export * from "./Header";
+export * from "./ThemeToggle";

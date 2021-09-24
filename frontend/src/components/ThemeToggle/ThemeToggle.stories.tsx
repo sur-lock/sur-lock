@@ -1,6 +1,6 @@
 import React from "react";
 import { Story } from "@storybook/react";
-import ThemeToggle from "./ThemeToggle";
+import { ThemeToggle } from "./ThemeToggle";
 
 export default {
 	title: "Components/Theme Toggle",

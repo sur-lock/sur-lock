@@ -55,7 +55,7 @@ const HTMLContent = () => {
 	);
 };
 
-export default function FirstSlide() {
+export function FirstSlide() {
 	return (
 		<>
 			<Canvas colorManagement camera={{ position: [0, 0, 120], fov: 70 }}>
