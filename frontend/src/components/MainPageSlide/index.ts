@@ -1,1 +1,1 @@
-export { default } from "./FirstSlide";
+export * from "./FirstSlide";

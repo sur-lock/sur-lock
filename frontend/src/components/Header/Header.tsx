@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import ThemeToggle from "./ThemeToggle";
+import { ThemeToggle } from "../ThemeToggle";
 
 interface HeaderProps {
 	switchTheme: () => void;
 }
 
-export default function Header({ switchTheme }: HeaderProps) {
+export function Header({ switchTheme }: HeaderProps) {
 	return (
 		<Wrapper>
 			<div className="header-inner">
@@ -42,7 +42,7 @@ const Wrapper = styled.header`
 		.logo {
 			font-size: ${({ theme: { fonts } }) => fonts.size.base};
 			letter-spacing: 2px;
-			color: ${({ theme: { colors } }) => colors.primary};
+			color: ${({ theme: { colors } }) => colors.secondary};
 		}
 		nav {
 			ul {
@@ -53,7 +53,7 @@ const Wrapper = styled.header`
 					margin: 0 ${({ theme: { margins } }) => margins.xl};
 					&.btn {
 						a {
-							border: 1px solid ${({ theme: { colors } }) => colors.primary};
+							border: 1px solid ${({ theme: { colors } }) => colors.secondary};
 							padding: ${({ theme: { paddings } }) => paddings.base};
 							border-radius: 10px;
 						}
@@ -61,7 +61,7 @@ const Wrapper = styled.header`
 					a {
 						text-transform: capitalize;
 						text-decoration: none;
-						color: ${({ theme: { colors } }) => colors.primary};
+						color: ${({ theme: { colors } }) => colors.secondary};
 					}
 				}
 			}
