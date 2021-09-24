@@ -1,20 +1,35 @@
-import React from "react";
+import  React , { useState } from "react";
 import styled from "styled-components";
+import { PlusCircleTwoTone } from '@ant-design/icons';
 import 'antd/dist/antd.css';
-import { Card, Form, Input } from 'antd'
+import { Card, Form, Input, Drawer, Button } from 'antd'
 
+// 추가버튼은 추후 FAB 관련 라이브러리 하나 찾아서 이용예정
 
-interface Inputs {
+// 1차적으로 Drawer를 이용하여 구현하였으나 Floating Action Button(FAB)을 이용하여 구현 예정
+// ******************이부분부터*****************
+const AddCard  = () => {
+    const [visible, setVisible] = useState(false);
+    const showDrawer = () => {
+      setVisible(true);
+    };
+    const onClose = () => {
+      setVisible(false);
+    };
+    return (
+      <>
+        <FloatingButton type="primary" onClick={showDrawer} shape="circle"  icon={<PlusCircleTwoTone />} size="large" />
+        <Drawer title="설문 문항 추가" placement="right" onClose={onClose} visible={visible}>
+          <p>주관식 이미지</p>
+          <p>주관식</p>
+          <p>객관식</p>
+          <p>객관식 이미지</p>
+        </Drawer>
+      </>
+    );
+  };
 
-    label : string;
-    name : string;
-    placeholder : string;
-    type : string;
-
-
-
-}
-
+// ************이부분까지 FAB이용해서 수정예정 ***************************
 const TitleInputWIthLabel = () =>{
 
         return( 
@@ -53,13 +68,20 @@ export default function CreateSurvey() {
             <SurveyForm  >
                 <TitleInputWIthLabel />
             </SurveyForm>
-
+            <AddCard/>
 
         </CardContainer>
 
 	);
 }
 
+
+const FloatingButton = styled(Button)`
+
+    margin : 10px;
+
+
+`;
 const Label = styled.h1`
 
     font-size : 3rem;
