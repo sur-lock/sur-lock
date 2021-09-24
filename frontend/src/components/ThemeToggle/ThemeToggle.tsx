@@ -7,7 +7,7 @@ interface ThemeToggleProps {
 	switchTheme: () => void;
 }
 
-export default function ThemeToggle({ switchTheme }: ThemeToggleProps) {
+export function ThemeToggle({ switchTheme }: ThemeToggleProps) {
 	const handleClick = () => {
 		switchTheme();
 	};
@@ -55,7 +55,7 @@ const CustomLabel = styled.label`
 	width: 50px;
 	height: 26px;
 	position: relative;
-	background-color: #000000;
+	background-color: ${({ theme: { colors } }) => colors.secondary};
 	${({ theme: { display } }) => display.flexRow("space-between", "center")}
 	padding: ${({ theme: { paddings } }) => paddings.sm};
 	border-radius: 50px;
@@ -70,7 +70,7 @@ const CustomLabel = styled.label`
 `;
 
 const Ball = styled.div`
-	background-color: #ffffff;
+	background-color: ${({ theme: { colors } }) => colors.primary};
 	position: absolute;
 	width: 22px;
 	height: 22px;
