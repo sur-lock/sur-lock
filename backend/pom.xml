@@ -90,6 +90,34 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.26.0</version>
+                <configuration>
+                    <images>
+                        <image>
+                            <name>nuguya</name>
+
+                            <build>
+                                <dockerFileDir>${basedir}</dockerFileDir> <!-- 기본 경로가  src/main/docker 까지 잡혀있음 basedir 환경 변수를 쓰면 프로젝트의 기본 디렉토리를 쓰게됨-->
+                                <filter>@</filter>
+                            </build>
+                        </image>
+                    </images>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>docker-build</id>
+                        <phase>package</phase> <!-- 패키징 한다음에 끼어들어가라 -->
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 
