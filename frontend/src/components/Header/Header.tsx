@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { ThemeToggle } from "../ThemeToggle";
 
@@ -14,7 +15,7 @@ export function Header({ switchTheme }: HeaderProps) {
 				<nav>
 					<ul>
 						<li>
-							<a href="/create">설문생성</a>
+							<Link to="/create">설문생성</Link>
 						</li>
 						<li>
 							<a href="/">응답하기</a>
