@@ -12,12 +12,6 @@ const InputWIthLabel = () => {
 					<Input placeholder="질문을 입력해주세요" />
 				</Form.Item>
 			</FormWrapper>
-			<FormWrapper style={{ overflow: "hidden" }}>
-				<Form.Item name="SurveyDiscription">
-					<Label>답변란</Label>
-					<Input placeholder="질문에 대한 답변란" />
-				</Form.Item>
-			</FormWrapper>
 		</Form>
 	);
 };
