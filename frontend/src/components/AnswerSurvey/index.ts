@@ -1,1 +1,1 @@
-export { default } from "./AnswerSurvey";
+export * from "./AnswerSurvey";
