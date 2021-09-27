@@ -76,30 +76,56 @@ const TitleInputWIthLabel = () => {
 };
 
 export function CreateSurvey() {
+	const [Questions, setQuestion] = useState([0]);
+	const onAddOptional = () => {
+		setQuestion(Questions => [...Questions, 1]);
+	};
+	const onAddOptionalWithImage = () => {
+		setQuestion(Questions => [...Questions, 2]);
+	};
+	const onAddAnswer = () => {
+		setQuestion(Questions => [...Questions, 3]);
+	};
+	const onAddAnswerWithImage = () => {
+		setQuestion(Questions => [...Questions, 4]);
+	};
+
+	const renderSurveys = () => {
+		const result = [];
+		for (let i = 1; i < Questions.length; i += 1) {
+			if (Questions[i] === 1) {
+				result.push(<OptionalSurvey />);
+			} else if (Questions[i] === 2) {
+				result.push(<OptionalSurveyWithImg />);
+			} else if (Questions[i] === 3) {
+				result.push(<AnswerSurvey />);
+			} else if (Questions[i] === 4) {
+				result.push(<AnswerSurveyWithImg />);
+			}
+		}
+		return result;
+	};
 	return (
 		<CardContainer>
 			<Title>설문조사 생성</Title>
 			<SurveyForm>
 				<TitleInputWIthLabel />
 			</SurveyForm>
-			<AnswerSurvey />
-			<OptionalSurvey />
-			<AnswerSurveyWithImg />
-			<OptionalSurveyWithImg />
+			{renderSurveys()}
 			<Fab icon="+">
 				<Action text="제출">
 					<UploadOutlined />
 				</Action>
-				<Action text="객관식">
+				<Action text="객관식" onClick={onAddOptional}>
 					<CheckOutlined />
 				</Action>
-				<Action text="객관식(이미지)">
+				<Action text="객관식(이미지)" onClick={onAddOptionalWithImage}>
 					<FileAddOutlined />
 				</Action>
-				<Action text="주관식">
+				<Action text="주관식" onClick={onAddAnswer}>
 					<ProfileOutlined />
 				</Action>
-				<Action text="주관식(이미지)">
+				<Action text="주관식(이미지)" onClick={onAddAnswerWithImage}>
 					<PictureOutlined />
 				</Action>
 			</Fab>
