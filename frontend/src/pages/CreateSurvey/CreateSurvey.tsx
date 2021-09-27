@@ -98,8 +98,9 @@ const FormWrapper = styled.div`
 `;
 
 const CardContainer = styled.div`
+	position: absolute;
+	top: 14%;
 	width: 100%;
-	height: 100vh !important;
 	text-align: center;
 	background: ${({ theme: { colors } }) => colors.phantomBlue};
 	font-size: ${({ theme: { fonts } }) => fonts.size.title};
@@ -107,7 +108,7 @@ const CardContainer = styled.div`
 `;
 
 const SurveyForm = styled(Card)`
-	position: absolut;
+	position: relative;
 	width: 65%;
 	padding: 20px;
 	margin: 20px;

@@ -38,6 +38,7 @@ const Wrapper = styled.header`
 	z-index: 99;
 	width: 100%;
 	padding: 60px;
+	background: ${({ theme: { colors } }) => colors.phantomBlue};
 	.header-inner {
 		${({ theme: { display } }) => display.flexRow("space-between")}
 		.logo {
