@@ -13099,6 +13099,11 @@ react-three-fiber@4.2.21:
     tiny-emitter "^2.1.0"
     utility-types "^3.10.0"
 
+react-tiny-fab@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/react-tiny-fab/-/react-tiny-fab-4.0.3.tgz#99c71f58a2567e25997c49baa22178652eaa868e"
+  integrity sha512-H+tHPM1bO3iTN8ZDoyq1r0ui8jKslWpkTf3OePztcD8vLvr9QzZqmEoCfXVZEHZEv2GlU06coAe/wjMEEH1sBA==
+
 react-use-measure@^2.0.0:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/react-use-measure/-/react-use-measure-2.0.4.tgz#cb675b36eaeaf3681b94d5f5e08b2a1e081fedc9"
