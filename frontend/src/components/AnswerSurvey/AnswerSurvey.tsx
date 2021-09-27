@@ -40,6 +40,8 @@ const FormWrapper = styled.div`
 `;
 
 const CardContainer = styled.div`
+	margin-top: 15px;
+	margin-bottom: 15px;
 	width: 100%;
 	height: 100%;
 	text-align: center;
@@ -50,6 +52,8 @@ const CardContainer = styled.div`
 `;
 
 const SurveyForm = styled(Card)`
+	margin-top: 15px;
+	margin-bottom: 15px;
 	position: absolut;
 	width: 65%;
 	padding: 20px;

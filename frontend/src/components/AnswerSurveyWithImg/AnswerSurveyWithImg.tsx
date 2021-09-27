@@ -76,6 +76,8 @@ const FormWrapper = styled.div`
 `;
 
 const CardContainer = styled.div`
+	margin-top: 15px;
+	margin-bottom: 15px;
 	width: 100%;
 	height: 100%;
 	text-align: center;
