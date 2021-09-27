@@ -3,7 +3,12 @@ import styled from "styled-components";
 import { PlusCircleTwoTone } from "@ant-design/icons";
 import "antd/dist/antd.css";
 import { Card, Form, Input, Drawer, Button } from "antd";
-import { AnswerSurvey, OptionalSurvey, AnswerSurveyWithImg } from "components";
+import {
+	AnswerSurvey,
+	OptionalSurvey,
+	AnswerSurveyWithImg,
+	OptionalSurveyWithImg,
+} from "components";
 
 // 추가버튼은 추후 FAB 관련 라이브러리 하나 찾아서 이용예정
 
@@ -71,6 +76,7 @@ export function CreateSurvey() {
 			<AnswerSurvey />
 			<OptionalSurvey />
 			<AnswerSurveyWithImg />
+			<OptionalSurveyWithImg />
 		</CardContainer>
 	);
 }

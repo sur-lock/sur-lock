@@ -1,1 +1,1 @@
-export { default } from "./OptionalSurveyWithImg";
+export * from "./OptionalSurveyWithImg";
