@@ -14,88 +14,100 @@ import {
 	OptionalSurvey,
 	AnswerSurveyWithImg,
 	OptionalSurveyWithImg,
+	SurveyTitle,
 } from "components";
 
 import { Fab, Action } from "react-tiny-fab";
 import "react-tiny-fab/dist/styles.css";
 
-const TitleInputWIthLabel = () => {
-	return (
-		<Form layout="vertical" autoComplete="off" size="large">
-			<FormWrapper style={{ overflow: "hidden" }}>
-				<Form.Item name="SurveyTitle">
-					<Label>설문 제목</Label>
-					<Input placeholder="설문 제목을 입력해주세요" />
-				</Form.Item>
-			</FormWrapper>
-			<FormWrapper style={{ overflow: "hidden" }}>
-				<Form.Item name="SurveyDiscription">
-					<Label>설문 설명</Label>
-					<Input placeholder="설문에 대한 설명을 입력해주세요" />
-				</Form.Item>
-			</FormWrapper>
-		</Form>
-	);
-};
-
 export function CreateSurvey() {
-	const initialState = [{ qType: 0, title: "", options: [""], imgs: [""] }];
-	const [Questions, setQuestion] = useState(initialState);
+	const initialState = {
+		address: "",
+		startDate: "",
+		endDate: "",
+		title: "",
+		discription: "",
+		questions: [{ qType: 0, title: "", options: [""], imgs: [""] }],
+	};
+	const [QuestionCount, setQuestionCount] = useState(0);
+	const [Survey, setSurvey] = useState(initialState);
+
 	const onAddOptional = () => {
-		setQuestion(Questions => [
-			...Questions,
-			{ qType: 1, title: "", options: [""], imgs: [""] },
-		]);
+		const newSurvey = Survey;
+		newSurvey.questions.push({
+			qType: 1,
+			title: "",
+			options: [""],
+			imgs: [""],
+		});
+		setSurvey(Survey => newSurvey);
+		setQuestionCount(QuestionCount + 1);
 	};
 	const onAddOptionalWithImage = () => {
-		setQuestion(Questions => [
-			...Questions,
-			{ qType: 2, title: "", options: [""], imgs: [""] },
-		]);
+		const newSurvey = Survey;
+		newSurvey.questions.push({
+			qType: 2,
+			title: "",
+			options: [""],
+			imgs: [""],
+		});
+		setSurvey(Survey => newSurvey);
+		setQuestionCount(QuestionCount + 1);
 	};
 	const onAddAnswer = () => {
-		setQuestion(Questions => [
-			...Questions,
-			{ qType: 3, title: "", options: [""], imgs: [""] },
-		]);
+		const newSurvey = Survey;
+		newSurvey.questions.push({
+			qType: 3,
+			title: "",
+			options: [""],
+			imgs: [""],
+		});
+		setSurvey(Survey => newSurvey);
+		setQuestionCount(QuestionCount + 1);
 	};
 	const onAddAnswerWithImage = () => {
-		setQuestion(Questions => [
-			...Questions,
-			{ qType: 4, title: "", options: [""], imgs: [""] },
-		]);
+		const newSurvey = Survey;
+		newSurvey.questions.push({
+			qType: 4,
+			title: "",
+			options: [""],
+			imgs: [""],
+		});
+		setSurvey(Survey => newSurvey);
+		setQuestionCount(QuestionCount + 1);
 	};
 
 	const getDatafromChild = (index: number, val: any) => {
-		const newQuestions = Questions;
-		newQuestions[index] = val;
-		setQuestion(Questions => newQuestions);
-		console.log(Questions);
+		const newSurvey = Survey;
+		newSurvey.questions[index] = val;
+		setSurvey(Survey => newSurvey);
 	};
 
 	const renderSurveys = () => {
 		const result = [];
-		for (let i = 1; i < Questions.length; i += 1) {
-			if (Questions[i].qType === 1) {
+		for (let i = 0; i <= QuestionCount; i += 1) {
+			if (Survey.questions[i].qType === 0) {
+				result.push(
+					<SurveyTitle QuestionIdx={i} sendData={getDatafromChild} />,
+				);
+			} else if (Survey.questions[i].qType === 1) {
 				result.push(
 					<OptionalSurvey QuestionIdx={i} sendData={getDatafromChild} />,
 				);
-			} else if (Questions[i].qType === 2) {
+			} else if (Survey.questions[i].qType === 2) {
 				result.push(<OptionalSurveyWithImg />);
-			} else if (Questions[i].qType === 3) {
+			} else if (Survey.questions[i].qType === 3) {
 				result.push(<AnswerSurvey />);
-			} else if (Questions[i].qType === 4) {
+			} else if (Survey.questions[i].qType === 4) {
 				result.push(<AnswerSurveyWithImg />);
 			}
 		}
 		return result;
 	};
+
 	return (
 		<CardContainer>
 			<Title>설문조사 생성</Title>
-			<SurveyForm>
-				<TitleInputWIthLabel />
-			</SurveyForm>
 			{renderSurveys()}
 			<Fab icon="+">
 				<Action text="제출">
