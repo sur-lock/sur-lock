@@ -72,27 +72,25 @@ export function OptionalSurvey({ QuestionIdx, sendData }: sendInterface) {
 	};
 
 	return (
-		<CardContainer>
-			<SurveyForm>
-				<Form layout="vertical" autoComplete="off" size="large">
-					<FormWrapper style={{ overflow: "hidden" }}>
-						<Form.Item name="SurveyTitle">
-							<Label>객관식 질문</Label>
-							<Input
-								placeholder="질문을 입력해주세요"
-								onChange={onTitleChangeHandler}
-							/>
-						</Form.Item>
-					</FormWrapper>
-					<Space>
-						<Space direction="vertical">{renderOptions()}</Space>
-					</Space>
-					<Buttons onClick={onComplete}>저장</Buttons>
-					<Buttons onClick={onDelete}>문항삭제</Buttons>
-					<Buttons onClick={onAdd}>문항추가</Buttons>
-				</Form>
-			</SurveyForm>
-		</CardContainer>
+		<SurveyForm>
+			<Form layout="vertical" autoComplete="off" size="large">
+				<FormWrapper style={{ overflow: "hidden" }}>
+					<Form.Item name="SurveyTitle">
+						<Label>객관식 질문</Label>
+						<Input
+							placeholder="질문을 입력해주세요"
+							onChange={onTitleChangeHandler}
+						/>
+					</Form.Item>
+				</FormWrapper>
+				<Space>
+					<Space direction="vertical">{renderOptions()}</Space>
+				</Space>
+				<Buttons onClick={onComplete}>저장</Buttons>
+				<Buttons onClick={onDelete}>문항삭제</Buttons>
+				<Buttons onClick={onAdd}>문항추가</Buttons>
+			</Form>
+		</SurveyForm>
 	);
 }
 

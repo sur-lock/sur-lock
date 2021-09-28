@@ -83,6 +83,10 @@ export function CreateSurvey() {
 			newSurvey.title = val.title;
 			newSurvey.discription = val.disc;
 			setSurvey(Survey => newSurvey);
+		} else if (Survey.questions[index].qType === 3) {
+			const newSurvey = Survey;
+			newSurvey.questions[index].title = val;
+			setSurvey(Survey => newSurvey);
 		} else {
 			const newSurvey = Survey;
 			newSurvey.questions[index] = val;
@@ -107,7 +111,9 @@ export function CreateSurvey() {
 					<OptionalSurveyWithImg QuestionIdx={i} sendData={getDatafromChild} />,
 				);
 			} else if (Survey.questions[i].qType === 3) {
-				result.push(<AnswerSurvey />);
+				result.push(
+					<AnswerSurvey QuestionIdx={i} sendData={getDatafromChild} />,
+				);
 			} else if (Survey.questions[i].qType === 4) {
 				result.push(<AnswerSurveyWithImg />);
 			}
