@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class Image {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long imageId;
 
     @Column(unique = true)
