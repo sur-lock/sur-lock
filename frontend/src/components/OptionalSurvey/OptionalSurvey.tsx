@@ -3,32 +3,73 @@ import styled from "styled-components";
 import "antd/dist/antd.css";
 import { Card, Form, Input, Space, Radio, Button } from "antd";
 
-export function OptionalSurvey() {
-	const [optionCount, setOptionCount] = useState(1);
+interface sendInterface {
+	sendData: (data: any) => void;
+}
+
+export function OptionalSurvey({ sendData }: sendInterface) {
+	const initialState = { qType: 1, title: "", options: [""], imgs: [""] };
+	const [optionCount, setOptionCount] = useState(initialState);
+	const [optionNumber, setOptionNumber] = useState(1);
 
 	const onAdd = () => {
-		setOptionCount(optionCount + 1);
+		const newOptionCount = optionCount;
+		const newOptions = [...optionCount.options];
+		newOptions.push("");
+		newOptionCount.options = newOptions;
+
+		setOptionCount(optionCount => newOptionCount);
+		setOptionNumber(optionNumber + 1);
+		sendData(optionCount);
 	};
 
 	const onDelete = () => {
-		if (optionCount > 1) {
-			setOptionCount(optionCount - 1);
+		if (optionCount.options.length > 1) {
+			const newOptionCount = optionCount;
+			const newOptions = [...optionCount.options];
+			newOptions.pop();
+			newOptionCount.options = newOptions;
+
+			setOptionCount(optionCount => newOptionCount);
+			setOptionNumber(optionNumber - 1);
+			sendData(optionCount);
 		}
+	};
+
+	const onOptionChangeHandler =
+		(index: number) => (e: React.FormEvent<HTMLInputElement>) => {
+			const newOptionCount = optionCount;
+			newOptionCount.options[index] = e.currentTarget.value;
+
+			setOptionCount(optionCount => newOptionCount);
+			sendData(optionCount);
+		};
+
+	const onTitleChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
+		const newOptionCount = optionCount;
+		newOptionCount.title = e.currentTarget.value;
+		setOptionCount(optionCount => newOptionCount);
+		sendData(optionCount);
 	};
 
 	const renderOptions = () => {
 		const result = [];
-		for (let i = 0; i < optionCount; i += 1) {
+		for (let i = 0; i < optionNumber; i += 1) {
 			result.push(
 				<Radios>
 					<Radio value={i}>
-						<Input placeholder="문항을 입력해주세요" />
+						<Input
+							placeholder="
+						문항을 입력해주세요"
+							onChange={onOptionChangeHandler(i)}
+						/>
 					</Radio>
 				</Radios>,
 			);
 		}
 		return result;
 	};
+
 	return (
 		<CardContainer>
 			<SurveyForm>
@@ -36,19 +77,29 @@ export function OptionalSurvey() {
 					<FormWrapper style={{ overflow: "hidden" }}>
 						<Form.Item name="SurveyTitle">
 							<Label>객관식 질문</Label>
-							<Input placeholder="질문을 입력해주세요" />
+							<Input
+								placeholder="질문을 입력해주세요"
+								onChange={onTitleChangeHandler}
+							/>
 						</Form.Item>
 					</FormWrapper>
 					<Space>
 						<Space direction="vertical">{renderOptions()}</Space>
-						<Button onClick={onAdd}>추가</Button>
-						<Button onClick={onDelete}>삭제</Button>
 					</Space>
+					<Buttons onClick={onDelete}>삭제</Buttons>
+					<Buttons onClick={onAdd}>추가</Buttons>
 				</Form>
 			</SurveyForm>
 		</CardContainer>
 	);
 }
+
+const Buttons = styled(Button)`
+	position: relative;
+	float: right;
+	top: 90%;
+	margin: 5px;
+`;
 
 const Radios = styled.div`
 	float: left;

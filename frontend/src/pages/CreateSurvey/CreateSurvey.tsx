@@ -19,43 +19,6 @@ import {
 import { Fab, Action } from "react-tiny-fab";
 import "react-tiny-fab/dist/styles.css";
 
-// 추가버튼은 추후 FAB 관련 라이브러리 하나 찾아서 이용예정
-
-// 1차적으로 Drawer를 이용하여 구현하였으나 Floating Action Button(FAB)을 이용하여 구현 예정
-// ******************이부분부터*****************
-// const AddCard = () => {
-// 	const [visible, setVisible] = useState(false);
-// 	const showDrawer = () => {
-// 		setVisible(true);
-// 	};
-// 	const onClose = () => {
-// 		setVisible(false);
-// 	};
-// 	return (
-// 		<>
-// 			<FloatingButton
-// 				type="primary"
-// 				onClick={showDrawer}
-// 				shape="circle"
-// 				icon={<PlusCircleTwoTone />}
-// 				size="large"
-// 			/>
-// 			<Drawer
-// 				title="설문 문항 추가"
-// 				placement="right"
-// 				onClose={onClose}
-// 				visible={visible}
-// 			>
-// 				<p>주관식 이미지</p>
-// 				<p>주관식</p>
-// 				<p>객관식</p>
-// 				<p>객관식 이미지</p>
-// 			</Drawer>
-// 		</>
-// 	);
-// };
-
-// ************이부분까지 FAB이용해서 수정예정 ***************************
 const TitleInputWIthLabel = () => {
 	return (
 		<Form layout="vertical" autoComplete="off" size="large">
@@ -76,30 +39,47 @@ const TitleInputWIthLabel = () => {
 };
 
 export function CreateSurvey() {
-	const [Questions, setQuestion] = useState([0]);
+	const initialState = [{ qType: 0, title: "", options: [""], imgs: [""] }];
+	const [Questions, setQuestion] = useState(initialState);
 	const onAddOptional = () => {
-		setQuestion(Questions => [...Questions, 1]);
+		setQuestion(Questions => [
+			...Questions,
+			{ qType: 1, title: "", options: [""], imgs: [""] },
+		]);
 	};
 	const onAddOptionalWithImage = () => {
-		setQuestion(Questions => [...Questions, 2]);
+		setQuestion(Questions => [
+			...Questions,
+			{ qType: 2, title: "", options: [""], imgs: [""] },
+		]);
 	};
 	const onAddAnswer = () => {
-		setQuestion(Questions => [...Questions, 3]);
+		setQuestion(Questions => [
+			...Questions,
+			{ qType: 3, title: "", options: [""], imgs: [""] },
+		]);
 	};
 	const onAddAnswerWithImage = () => {
-		setQuestion(Questions => [...Questions, 4]);
+		setQuestion(Questions => [
+			...Questions,
+			{ qType: 4, title: "", options: [""], imgs: [""] },
+		]);
+	};
+
+	const getDatafromChild = (val: any) => {
+		console.log(val);
 	};
 
 	const renderSurveys = () => {
 		const result = [];
 		for (let i = 1; i < Questions.length; i += 1) {
-			if (Questions[i] === 1) {
-				result.push(<OptionalSurvey />);
-			} else if (Questions[i] === 2) {
+			if (Questions[i].qType === 1) {
+				result.push(<OptionalSurvey sendData={getDatafromChild} />);
+			} else if (Questions[i].qType === 2) {
 				result.push(<OptionalSurveyWithImg />);
-			} else if (Questions[i] === 3) {
+			} else if (Questions[i].qType === 3) {
 				result.push(<AnswerSurvey />);
-			} else if (Questions[i] === 4) {
+			} else if (Questions[i].qType === 4) {
 				result.push(<AnswerSurveyWithImg />);
 			}
 		}
