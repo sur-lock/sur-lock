@@ -4,8 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ExtMimeUtils {
+
+    public static final String defaultMime = "image/jpeg";
+    public static final String defaultExt = "jpg";
+
     private static final Map<String, String> extMimeMap;
-    private static final String defaultMime = "image/jpeg";
 
     static {
         extMimeMap = new HashMap<>();
