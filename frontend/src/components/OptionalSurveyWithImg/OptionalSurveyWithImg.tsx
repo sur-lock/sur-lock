@@ -62,7 +62,6 @@ export function OptionalSurveyWithImg({
 				newOptionModel.imgs = newOptionImgs;
 			}
 			setOptionModel(optionModel => newOptionModel);
-			console.log(optionModel);
 		};
 
 	const renderOptions = () => {

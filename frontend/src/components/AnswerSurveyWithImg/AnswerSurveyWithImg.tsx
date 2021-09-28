@@ -1,59 +1,66 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import "antd/dist/antd.css";
-import { Card, Form, Input, Drawer, Button } from "antd";
+import { Card, Form, Input, Image, Button } from "antd";
 
-const InputWIthLabel = () => {
-	const initialState = { alt: "", src: "" };
+interface sendInterface {
+	QuestionIdx: number;
+	sendData: (idx: number, data: any) => void;
+}
 
-	const [{ alt, src }, setPreview] = useState(initialState);
+export function AnswerSurveyWithImg({ QuestionIdx, sendData }: sendInterface) {
+	const initialState = { ans: "", src: "" };
 
+	const [Answer, setPreview] = useState(initialState);
+
+	const onComplete = () => {
+		sendData(QuestionIdx, Answer);
+	};
+
+	const onTitleChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
+		const newAnswer = Answer;
+		newAnswer.ans = e.currentTarget.value;
+		setPreview(Answer => newAnswer);
+	};
 	const fileHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const newAnswer = Answer;
 		const { files } = event.target;
 
 		if (files) {
-			setPreview(
-				files.length
-					? {
-							src: URL.createObjectURL(files[0]),
-							alt: files[0].name,
-					  }
-					: initialState,
-			);
+			newAnswer.src = URL.createObjectURL(files[0]);
+			setPreview(Answer => newAnswer);
 		}
 	};
 	return (
-		<Form layout="vertical" autoComplete="off" size="large">
-			<FormWrapper style={{ overflow: "hidden" }}>
-				<Form.Item name="SurveyTitle">
-					<Label>주관식 질문(이미지 첨부)</Label>
-					<br />
-					<br />
-					<br />
-					<ImageContainer className="addNew">
-						<Image className="preview" src={src} alt={alt} />
-						<input accept="image/*" type="file" onChange={fileHandler} />
-					</ImageContainer>
-					<Input placeholder="질문을 입력해주세요" />
-				</Form.Item>
-			</FormWrapper>
-		</Form>
-	);
-};
-
-export function AnswerSurveyWithImg() {
-	return (
-		<CardContainer>
-			<SurveyForm>
-				<InputWIthLabel />
-			</SurveyForm>
-		</CardContainer>
+		<SurveyForm>
+			<Form layout="vertical" autoComplete="off" size="large">
+				<FormWrapper style={{ overflow: "hidden" }}>
+					<Form.Item name="SurveyTitle">
+						<Label>주관식 질문(이미지 첨부)</Label>
+						<br />
+						<br />
+						<br />
+						<ImageContainer className="addNew">
+							<input accept="image/*" type="file" onChange={fileHandler} />
+							<Image className="preview" src={Answer.src} />
+						</ImageContainer>
+						<Input
+							onChange={onTitleChangeHandler}
+							placeholder="질문을 입력해주세요"
+						/>
+					</Form.Item>
+				</FormWrapper>
+				<Buttons onClick={onComplete}>저장</Buttons>
+			</Form>
+		</SurveyForm>
 	);
 }
 
-const Image = styled.img`
-	width: 30%;
-	height: auto;
+const Buttons = styled(Button)`
+	position: relative;
+	float: right;
+	top: 90%;
+	margin: 5px;
 `;
 const ImageContainer = styled.div`
 	display: block;
@@ -73,18 +80,6 @@ const Label = styled.h1`
 const FormWrapper = styled.div`
 	display: block;
 	font-size: 2rem;
-`;
-
-const CardContainer = styled.div`
-	margin-top: 15px;
-	margin-bottom: 15px;
-	width: 100%;
-	height: 100%;
-	text-align: center;
-
-	background: ${({ theme: { colors } }) => colors.phantomBlue};
-	font-size: ${({ theme: { fonts } }) => fonts.size.title};
-	${({ theme: { display } }) => display.flexCol()}
 `;
 
 const SurveyForm = styled(Card)`

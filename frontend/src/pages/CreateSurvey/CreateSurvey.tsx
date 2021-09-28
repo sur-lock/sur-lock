@@ -87,6 +87,11 @@ export function CreateSurvey() {
 			const newSurvey = Survey;
 			newSurvey.questions[index].title = val;
 			setSurvey(Survey => newSurvey);
+		} else if (Survey.questions[index].qType === 4) {
+			const newSurvey = Survey;
+			newSurvey.questions[index].title = val.ans;
+			newSurvey.questions[index].imgs[0] = val.src;
+			setSurvey(Survey => newSurvey);
 		} else {
 			const newSurvey = Survey;
 			newSurvey.questions[index] = val;
@@ -115,7 +120,9 @@ export function CreateSurvey() {
 					<AnswerSurvey QuestionIdx={i} sendData={getDatafromChild} />,
 				);
 			} else if (Survey.questions[i].qType === 4) {
-				result.push(<AnswerSurveyWithImg />);
+				result.push(
+					<AnswerSurveyWithImg QuestionIdx={i} sendData={getDatafromChild} />,
+				);
 			}
 		}
 		return result;

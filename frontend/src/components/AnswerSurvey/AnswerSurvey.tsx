@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import "antd/dist/antd.css";
-import { Card, Form, Input, Drawer, Button } from "antd";
+import { Card, Form, Input, Button } from "antd";
 
 interface sendInterface {
 	QuestionIdx: number;
