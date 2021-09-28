@@ -66,15 +66,20 @@ export function CreateSurvey() {
 		]);
 	};
 
-	const getDatafromChild = (val: any) => {
-		console.log(val);
+	const getDatafromChild = (index: number, val: any) => {
+		const newQuestions = Questions;
+		newQuestions[index] = val;
+		setQuestion(Questions => newQuestions);
+		console.log(Questions);
 	};
 
 	const renderSurveys = () => {
 		const result = [];
 		for (let i = 1; i < Questions.length; i += 1) {
 			if (Questions[i].qType === 1) {
-				result.push(<OptionalSurvey sendData={getDatafromChild} />);
+				result.push(
+					<OptionalSurvey QuestionIdx={i} sendData={getDatafromChild} />,
+				);
 			} else if (Questions[i].qType === 2) {
 				result.push(<OptionalSurveyWithImg />);
 			} else if (Questions[i].qType === 3) {
@@ -113,9 +118,6 @@ export function CreateSurvey() {
 	);
 }
 
-const FloatingButton = styled(Button)`
-	margin: 10px;
-`;
 const Label = styled.h1`
 	font-size: 3rem;
 	float: left;

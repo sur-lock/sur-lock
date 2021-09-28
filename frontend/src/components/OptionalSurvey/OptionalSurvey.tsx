@@ -4,10 +4,11 @@ import "antd/dist/antd.css";
 import { Card, Form, Input, Space, Radio, Button } from "antd";
 
 interface sendInterface {
-	sendData: (data: any) => void;
+	QuestionIdx: number;
+	sendData: (idx: number, data: any) => void;
 }
 
-export function OptionalSurvey({ sendData }: sendInterface) {
+export function OptionalSurvey({ QuestionIdx, sendData }: sendInterface) {
 	const initialState = { qType: 1, title: "", options: [""], imgs: [""] };
 	const [optionCount, setOptionCount] = useState(initialState);
 	const [optionNumber, setOptionNumber] = useState(1);
@@ -20,7 +21,6 @@ export function OptionalSurvey({ sendData }: sendInterface) {
 
 		setOptionCount(optionCount => newOptionCount);
 		setOptionNumber(optionNumber + 1);
-		sendData(optionCount);
 	};
 
 	const onDelete = () => {
@@ -32,7 +32,6 @@ export function OptionalSurvey({ sendData }: sendInterface) {
 
 			setOptionCount(optionCount => newOptionCount);
 			setOptionNumber(optionNumber - 1);
-			sendData(optionCount);
 		}
 	};
 
@@ -42,14 +41,16 @@ export function OptionalSurvey({ sendData }: sendInterface) {
 			newOptionCount.options[index] = e.currentTarget.value;
 
 			setOptionCount(optionCount => newOptionCount);
-			sendData(optionCount);
 		};
 
 	const onTitleChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
 		const newOptionCount = optionCount;
 		newOptionCount.title = e.currentTarget.value;
 		setOptionCount(optionCount => newOptionCount);
-		sendData(optionCount);
+	};
+
+	const onComplete = () => {
+		sendData(QuestionIdx, optionCount);
 	};
 
 	const renderOptions = () => {
@@ -86,8 +87,9 @@ export function OptionalSurvey({ sendData }: sendInterface) {
 					<Space>
 						<Space direction="vertical">{renderOptions()}</Space>
 					</Space>
-					<Buttons onClick={onDelete}>삭제</Buttons>
-					<Buttons onClick={onAdd}>추가</Buttons>
+					<Buttons onClick={onComplete}>저장</Buttons>
+					<Buttons onClick={onDelete}>문항삭제</Buttons>
+					<Buttons onClick={onAdd}>문항추가</Buttons>
 				</Form>
 			</SurveyForm>
 		</CardContainer>
