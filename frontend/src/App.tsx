@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { MainPage, CreateSurvey } from "pages";
 import { darkTheme, lightTheme } from "style/theme";
 import { Header } from "components";
-import styled from "styled-components";
 
 const getTheme = () => {
 	const userTheme = localStorage.getItem("theme");
@@ -26,7 +25,6 @@ export default function App() {
 	return (
 		<ThemeProvider theme={theme}>
 			<GlobalStyle />
-
 			<Router>
 				<Header switchTheme={switchTheme} />
 				<Switch>
