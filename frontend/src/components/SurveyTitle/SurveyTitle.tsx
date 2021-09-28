@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import "antd/dist/antd.css";
-import { Card, Form, Input, Space, Radio, Button } from "antd";
+import { Card, Form, Input } from "antd";
 
 interface sendInterface {
 	QuestionIdx: number;
@@ -50,17 +50,6 @@ export function SurveyTitle({ QuestionIdx, sendData }: sendInterface) {
 	);
 }
 
-const Buttons = styled(Button)`
-	position: relative;
-	float: right;
-	top: 90%;
-	margin: 5px;
-`;
-
-const Radios = styled.div`
-	float: left;
-`;
-
 const Label = styled.h1`
 	font-size: 3rem;
 	float: left;
@@ -72,18 +61,6 @@ const Label = styled.h1`
 `;
 const FormWrapper = styled.div`
 	font-size: 2rem;
-`;
-
-const CardContainer = styled.div`
-	margin-top: 15px;
-	margin-bottom: 15px;
-	width: 100%;
-	height: 100%;
-	text-align: center;
-
-	background: ${({ theme: { colors } }) => colors.phantomBlue};
-	font-size: ${({ theme: { fonts } }) => fonts.size.title};
-	${({ theme: { display } }) => display.flexCol()}
 `;
 
 const SurveyForm = styled(Card)`

@@ -8,7 +8,7 @@ import {
 	UploadOutlined,
 } from "@ant-design/icons";
 import "antd/dist/antd.css";
-import { Card, Form, Input, Drawer, Button } from "antd";
+import { Card } from "antd";
 import {
 	AnswerSurvey,
 	OptionalSurvey,
@@ -78,9 +78,17 @@ export function CreateSurvey() {
 	};
 
 	const getDatafromChild = (index: number, val: any) => {
-		const newSurvey = Survey;
-		newSurvey.questions[index] = val;
-		setSurvey(Survey => newSurvey);
+		if (Survey.questions[index].qType === 0) {
+			const newSurvey = Survey;
+			newSurvey.title = val.title;
+			newSurvey.discription = val.disc;
+			setSurvey(Survey => newSurvey);
+		} else {
+			const newSurvey = Survey;
+			newSurvey.questions[index] = val;
+			setSurvey(Survey => newSurvey);
+		}
+		console.log(Survey);
 	};
 
 	const renderSurveys = () => {
@@ -95,7 +103,9 @@ export function CreateSurvey() {
 					<OptionalSurvey QuestionIdx={i} sendData={getDatafromChild} />,
 				);
 			} else if (Survey.questions[i].qType === 2) {
-				result.push(<OptionalSurveyWithImg />);
+				result.push(
+					<OptionalSurveyWithImg QuestionIdx={i} sendData={getDatafromChild} />,
+				);
 			} else if (Survey.questions[i].qType === 3) {
 				result.push(<AnswerSurvey />);
 			} else if (Survey.questions[i].qType === 4) {
@@ -154,14 +164,6 @@ const CardContainer = styled.div`
 	background: ${({ theme: { colors } }) => colors.phantomBlue};
 	font-size: ${({ theme: { fonts } }) => fonts.size.title};
 	${({ theme: { display } }) => display.flexCol()}
-`;
-
-const SurveyForm = styled(Card)`
-	margin-top: 15px;
-	margin-bottom: 15px;
-	width: 65%;
-	padding: 20px;
-	margin: 20px;
 `;
 
 const Title = styled.h1`
