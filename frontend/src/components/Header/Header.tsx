@@ -11,7 +11,9 @@ export function Header({ switchTheme }: HeaderProps) {
 	return (
 		<Wrapper>
 			<div className="header-inner">
-				<div className="logo">설록.</div>
+				<Link to="/">
+					<div className="logo">설록.</div>
+				</Link>
 				<nav>
 					<ul>
 						<li>
@@ -38,7 +40,6 @@ const Wrapper = styled.header`
 	z-index: 99;
 	width: 100%;
 	padding: 60px;
-	background: ${({ theme: { colors } }) => colors.phantomBlue};
 	.header-inner {
 		${({ theme: { display } }) => display.flexRow("space-between")}
 		.logo {

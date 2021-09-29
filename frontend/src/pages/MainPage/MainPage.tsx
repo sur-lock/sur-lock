@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { FirstSlide } from "components";
+import { FirstSlide, SecondSlide, ThirdSlide, Footer } from "components";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/swiper.scss";
@@ -27,9 +27,15 @@ export function MainPage() {
 			<SwiperSlide>
 				<FirstSlide />
 			</SwiperSlide>
-			<SwiperSlide>Slide 2</SwiperSlide>
-			<SwiperSlide>Slide 3</SwiperSlide>
-			<SwiperSlide>Slide 4</SwiperSlide>
+			<SwiperSlide>
+				<SecondSlide />
+			</SwiperSlide>
+			<SwiperSlide>
+				<ThirdSlide />
+			</SwiperSlide>
+			<SwiperSlide>
+				<Footer />
+			</SwiperSlide>
 		</StyledSlider>
 	);
 }
@@ -43,5 +49,10 @@ const StyledSlider = styled(Swiper)`
 		background: ${({ theme: { colors } }) => colors.phantomBlue};
 		font-size: ${({ theme: { fonts } }) => fonts.size.title};
 		${({ theme: { display } }) => display.flexRow()}
+	}
+
+	.swiper-slide:nth-child(4) {
+		background-color: ${({ theme: { colors } }) => colors.primary};
+		color: ${({ theme: { colors } }) => colors.secondary};
 	}
 `;
