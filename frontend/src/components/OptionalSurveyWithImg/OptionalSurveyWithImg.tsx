@@ -1,56 +1,79 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import "antd/dist/antd.css";
-import { Card, Form, Input, Drawer, Radio, Space, Button } from "antd";
+import { Card, Form, Input, Image, Radio, Space, Button } from "antd";
 
-const OptionWithImasge = () => {
-	const initialState = { alt: "", src: "" };
+interface sendInterface {
+	QuestionIdx: number;
+	sendData: (idx: number, data: any) => void;
+}
 
-	const [{ alt, src }, setPreview] = useState(initialState);
-
-	const fileHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const { files } = event.target;
-
-		if (files) {
-			setPreview(
-				files.length
-					? {
-							src: URL.createObjectURL(files[0]),
-							alt: files[0].name,
-					  }
-					: initialState,
-			);
-		}
-	};
-
-	return (
-		<ImageContainer className="addNew">
-			<Image className="preview" src={src} alt={alt} />
-			<input accept="image/*" type="file" onChange={fileHandler} />
-		</ImageContainer>
-	);
-};
-
-export function OptionalSurveyWithImg() {
+export function OptionalSurveyWithImg({
+	QuestionIdx,
+	sendData,
+}: sendInterface) {
+	const initialState = { qType: 2, title: "", options: [""], imgs: [""] };
+	const [optionModel, setOptionModel] = useState(initialState);
 	const [optionCount, setOptionCount] = useState(1);
 
 	const onAdd = () => {
+		const newOptionModel = optionModel;
+		const newOptions = [...optionModel.options];
+		newOptions.push("");
+		newOptionModel.options = newOptions;
+		const newOptionImgs = [...optionModel.imgs];
+		newOptionImgs.push("");
+		newOptionModel.imgs = newOptionImgs;
+
+		setOptionModel(optionModel => newOptionModel);
 		setOptionCount(optionCount + 1);
+		console.log(optionModel);
 	};
 
 	const onDelete = () => {
 		if (optionCount > 1) {
+			const newOptionModel = optionModel;
+			const newOptions = [...optionModel.options];
+			const newOptionImgs = [...optionModel.imgs];
+			newOptions.pop();
+			newOptionImgs.pop();
+			newOptionModel.options = newOptions;
+			newOptionModel.imgs = newOptionImgs;
+			setOptionModel(optionModel => newOptionModel);
 			setOptionCount(optionCount - 1);
 		}
 	};
+
+	const onTitleChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
+		const newOptionModel = optionModel;
+		newOptionModel.title = e.currentTarget.value;
+		setOptionModel(optionModel => newOptionModel);
+	};
+	const onComplete = () => {
+		sendData(QuestionIdx, optionModel);
+	};
+	const fileHandler =
+		(idx: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+			const newOptionModel = optionModel;
+			const newOptionImgs = [...optionModel.imgs];
+			const { files } = event.target;
+			if (files) {
+				newOptionImgs[idx] = URL.createObjectURL(files[0]);
+				newOptionModel.imgs = newOptionImgs;
+			}
+			setOptionModel(optionModel => newOptionModel);
+		};
 
 	const renderOptions = () => {
 		const result = [];
 		for (let i = 0; i < optionCount; i += 1) {
 			result.push(
 				<Radios>
-					<Radio value={i}>
-						<OptionWithImasge />
+					<Radio disabled>
+						<ImageContainer className="addNew">
+							<input accept="image/*" type="file" onChange={fileHandler(i)} />
+							<Image className="preview" src={optionModel.imgs[i]} />
+						</ImageContainer>
 					</Radio>
 				</Radios>,
 			);
@@ -58,30 +81,35 @@ export function OptionalSurveyWithImg() {
 		return result;
 	};
 	return (
-		<CardContainer>
-			<SurveyForm>
-				<Form layout="vertical" autoComplete="off" size="large">
-					<FormWrapper style={{ overflow: "hidden" }}>
-						<Form.Item name="SurveyTitle">
-							<Label>객관식 질문(이미지첨부)</Label>
-							<Input placeholder="질문을 입력해주세요" />
-						</Form.Item>
-					</FormWrapper>
-					<Space>
-						<Space direction="vertical">{renderOptions()}</Space>
-						<Button onClick={onAdd}>추가</Button>
-						<Button onClick={onDelete}>삭제</Button>
-					</Space>
-				</Form>
-			</SurveyForm>
-		</CardContainer>
+		<SurveyForm>
+			<Form layout="vertical" autoComplete="off" size="large">
+				<FormWrapper style={{ overflow: "hidden" }}>
+					<Form.Item name="SurveyTitle">
+						<Label>객관식 질문(이미지첨부)</Label>
+						<Input
+							placeholder="질문을 입력해주세요"
+							onChange={onTitleChangeHandler}
+						/>
+					</Form.Item>
+				</FormWrapper>
+				<Space>
+					<Space direction="vertical">{renderOptions()}</Space>
+				</Space>
+				<Buttons onClick={onComplete}>저장</Buttons>
+				<Buttons onClick={onDelete}>그림삭제</Buttons>
+				<Buttons onClick={onAdd}>그림추가</Buttons>
+			</Form>
+		</SurveyForm>
 	);
 }
 
-const Image = styled.img`
-	width: 30%;
-	height: auto;
+const Buttons = styled(Button)`
+	position: relative;
+	float: right;
+	top: 90%;
+	margin: 5px;
 `;
+
 const ImageContainer = styled.div`
 	width: 100%;
 	height: 100%;
@@ -107,18 +135,6 @@ const Label = styled.h1`
 `;
 const FormWrapper = styled.div`
 	font-size: 2rem;
-`;
-
-const CardContainer = styled.div`
-	margin-top: 15px;
-	margin-bottom: 15px;
-	width: 100%;
-	height: 100%;
-	text-align: center;
-
-	background: ${({ theme: { colors } }) => colors.phantomBlue};
-	font-size: ${({ theme: { fonts } }) => fonts.size.title};
-	${({ theme: { display } }) => display.flexCol()}
 `;
 
 const SurveyForm = styled(Card)`

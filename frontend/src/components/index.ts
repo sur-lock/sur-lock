@@ -6,3 +6,4 @@ export * from "./AnswerSurvey";
 export * from "./AnswerSurveyWithImg";
 export * from "./OptionalSurvey";
 export * from "./OptionalSurveyWithImg";
+export * from "./SurveyTitle";
