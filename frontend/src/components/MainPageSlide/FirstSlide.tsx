@@ -1,9 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import { writingman } from "static/image";
+import { InducingScroll } from "components";
 
 export function FirstSlide() {
-	return <Wrapper> </Wrapper>;
+	return (
+		<Wrapper>
+			<InducingScroll />
+		</Wrapper>
+	);
 }
 
 const Wrapper = styled.div`
