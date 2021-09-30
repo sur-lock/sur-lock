@@ -8,7 +8,6 @@ public class SurlockApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SurlockApplication.class, args);
-        // check
     }
 
 }
