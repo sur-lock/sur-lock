@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { InducingScroll } from "components";
 import {
 	shinjoohwan,
 	aftershinjoohwan,
@@ -83,6 +84,7 @@ export function ThirdSlide() {
 					</Introduce>
 				</Developer>
 			</Developers>
+			<InducingScroll />
 		</Wrapper>
 	);
 }

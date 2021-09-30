@@ -14,7 +14,9 @@ export function Footer() {
 					<br />
 					SSAFY 5기의 5명의 개발자들이 뭉쳐 개발하였습니다.
 				</p>
-				<FontAwesomeIcon className="faGithubSquare" icon={faGithubSquare} />
+				<a href="https://github.com/sur-lock" rel="noreferrer" target="_blank">
+					<FontAwesomeIcon className="faGithubSquare" icon={faGithubSquare} />
+				</a>
 			</About>
 			<Links>
 				<h4>Quick Links</h4>
@@ -50,7 +52,7 @@ const Wrapper = styled.div`
 
 const About = styled.div`
 	width: 30%;
-	margin-top: 62px;
+	margin-top: 74px;
 	${({ theme: { display } }) => display.flexCol()};
 
 	h4 {
@@ -70,8 +72,13 @@ const About = styled.div`
 
 	p {
 		font-size: ${({ theme: { fonts } }) => fonts.size.lg};
+		white-space: nowrap;
 		text-align: center;
 		line-height: 1.5;
+	}
+
+	a {
+		color: ${({ theme: { colors } }) => colors.secondary};
 	}
 
 	.faGithubSquare {

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { InducingScroll } from "components";
 
 export function SecondSlide() {
 	return (
@@ -33,6 +34,7 @@ export function SecondSlide() {
 					<p>누구나 쉽게 설문조사를 작성할 수 있습니다.</p>
 				</Circle>
 			</Circles>
+			<InducingScroll />
 		</Wrapper>
 	);
 }
@@ -69,7 +71,7 @@ const Circle = styled.div`
 
 	p:nth-child(1) {
 		margin-top: 100px;
-		transition: all 1s;
+		transition: transform 1s, background-color 1s, font-size 1s;
 	}
 
 	p:nth-child(2) {
@@ -77,7 +79,7 @@ const Circle = styled.div`
 		opacity: 0;
 		margin-top: -50px;
 		line-height: 1.5;
-		transition: all 1s;
+		transition: transform 1s, background-color 1s, font-size 1s;
 	}
 
 	:hover {
