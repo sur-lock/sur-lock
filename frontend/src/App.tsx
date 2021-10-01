@@ -31,6 +31,7 @@ export default function App() {
 					<Route exact path="/" component={MainPage} />
 					<Route exact path="/create" component={CreateSurvey} />
 					<Route exact path="/response" component={ResponseSurvey} />
+					<Route exact path="/response/:surveyURL" component={ResponseSurvey} />
 				</Switch>
 			</Router>
 		</ThemeProvider>
