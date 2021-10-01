@@ -7,6 +7,7 @@ import {
 	PictureOutlined,
 	UploadOutlined,
 } from "@ant-design/icons";
+import { ResponseOption } from "components";
 import "antd/dist/antd.css";
 import { Card } from "antd";
 import { Fab, Action } from "react-tiny-fab";
@@ -20,7 +21,12 @@ const sampleData = {
 	discription: "샘플입니다",
 	questions: [
 		{ qType: 0, title: "", options: [""], imgs: [""] },
-		{ qType: 1, title: "객관식1", options: ["1", "2", "3", "4"], imgs: [""] },
+		{
+			qType: 1,
+			title: "객관식1",
+			options: ["1", "2", "3", "4"],
+			imgs: [""],
+		},
 		{
 			qType: 2,
 			title: "객관식2",
@@ -42,7 +48,20 @@ const sampleData = {
 };
 
 export function ResponseSurvey() {
-	return <div>11</div>;
+	const getDatafromChild = (index: number, val: any) => {
+		console.log(val);
+	};
+	return (
+		<CardContainer>
+			<Title>설문조사 응답</Title>
+			<ResponseOption
+				title={sampleData.questions[1].title}
+				options={sampleData.questions[1].options}
+				QuestionIdx={1}
+				sendData={getDatafromChild}
+			/>
+		</CardContainer>
+	);
 }
 
 const Label = styled.h1`

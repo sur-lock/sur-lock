@@ -8,3 +8,4 @@ export * from "./OptionalSurvey";
 export * from "./OptionalSurveyWithImg";
 export * from "./SurveyTitle";
 export * from "./ThemeToggle";
+export * from "./Response";
