@@ -28,7 +28,6 @@ export function ResponseOptionWithImg({
 	const [Answer, setAnswer] = useState(0);
 
 	const onOptionChangeHandler = (e: RadioChangeEvent) => {
-		console.log("radio checked", e.target.value);
 		setAnswer(e.target.value);
 		sendData(QuestionIdx, e.target.value);
 	};

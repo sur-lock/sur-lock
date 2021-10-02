@@ -76,6 +76,12 @@ export function ResponseSurvey() {
 				QuestionIdx={3}
 				sendData={getDatafromChild}
 			/>
+			<ResponseAnswerWithImg
+				title={sampleData.questions[4].title}
+				imgs={sampleData.questions[4].imgs}
+				QuestionIdx={4}
+				sendData={getDatafromChild}
+			/>
 		</CardContainer>
 	);
 }
