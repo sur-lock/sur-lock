@@ -1,20 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import {
-	CheckOutlined,
-	FileAddOutlined,
-	ProfileOutlined,
-	PictureOutlined,
-	UploadOutlined,
-} from "@ant-design/icons";
-import {
 	ResponseOption,
 	ResponseOptionWithImg,
 	ResponseAnswer,
 	ResponseAnswerWithImg,
 } from "components";
+import { RightOutlined, UploadOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
-import { Card } from "antd";
 import { Fab, Action } from "react-tiny-fab";
 import "react-tiny-fab/dist/styles.css";
 
@@ -25,7 +18,6 @@ const sampleData = {
 	title: "설문샘플",
 	discription: "샘플입니다",
 	questions: [
-		{ qType: 0, title: "", options: [""], imgs: [""] },
 		{
 			qType: 1,
 			title: "객관식1",
@@ -53,48 +45,88 @@ const sampleData = {
 };
 
 export function ResponseSurvey() {
+	const initialState: { val: any; qType: number }[] = [];
+	for (let i = 0; i < sampleData.questions.length; i += 1) {
+		initialState.push({ val: null, qType: sampleData.questions[i].qType });
+	}
+	const [Answer, setAnswer] = useState(initialState);
+	console.log(initialState);
+
 	const getDatafromChild = (index: number, val: any) => {
-		console.log(val);
+		const newAnswer = Answer;
+		newAnswer[index].val = val;
+		setAnswer(Answer => newAnswer);
 	};
+	const count = sampleData.questions.length;
+
+	const renderSurveys = () => {
+		const result = [];
+		for (let i = 0; i < count; i += 1) {
+			if (sampleData.questions[i].qType === 1) {
+				result.push(
+					<ResponseOption
+						title={sampleData.questions[i].title}
+						options={sampleData.questions[i].options}
+						QuestionIdx={i}
+						sendData={getDatafromChild}
+					/>,
+				);
+			} else if (sampleData.questions[i].qType === 2) {
+				result.push(
+					<ResponseOptionWithImg
+						title={sampleData.questions[i].title}
+						imgs={sampleData.questions[i].imgs}
+						QuestionIdx={i}
+						sendData={getDatafromChild}
+					/>,
+				);
+			} else if (sampleData.questions[i].qType === 3) {
+				result.push(
+					<ResponseAnswer
+						title={sampleData.questions[i].title}
+						QuestionIdx={i}
+						sendData={getDatafromChild}
+					/>,
+				);
+			} else if (sampleData.questions[i].qType === 4) {
+				result.push(
+					<ResponseAnswerWithImg
+						title={sampleData.questions[i].title}
+						imgs={sampleData.questions[i].imgs}
+						QuestionIdx={i}
+						sendData={getDatafromChild}
+					/>,
+				);
+			}
+		}
+
+		return result;
+	};
+
+	const onSubmitSurvey = () => {
+		console.log(Answer);
+	};
+
+	const moveToResult = () => {
+		console.log(1);
+	};
+
 	return (
 		<CardContainer>
 			<Title>설문조사 응답</Title>
-			<ResponseOption
-				title={sampleData.questions[1].title}
-				options={sampleData.questions[1].options}
-				QuestionIdx={1}
-				sendData={getDatafromChild}
-			/>
-			<ResponseOptionWithImg
-				title={sampleData.questions[2].title}
-				imgs={sampleData.questions[2].imgs}
-				QuestionIdx={2}
-				sendData={getDatafromChild}
-			/>
-			<ResponseAnswer
-				title={sampleData.questions[3].title}
-				QuestionIdx={3}
-				sendData={getDatafromChild}
-			/>
-			<ResponseAnswerWithImg
-				title={sampleData.questions[4].title}
-				imgs={sampleData.questions[4].imgs}
-				QuestionIdx={4}
-				sendData={getDatafromChild}
-			/>
+
+			{renderSurveys()}
+			<Fab icon="+">
+				<Action text="제출" onClick={onSubmitSurvey}>
+					<UploadOutlined />
+				</Action>
+				<Action text="결과보기" onClick={moveToResult}>
+					<RightOutlined />
+				</Action>
+			</Fab>
 		</CardContainer>
 	);
 }
-
-const Label = styled.h1`
-	font-size: 3rem;
-	float: left;
-	margin-bottom: 10px;
-	coler: #fff;
-	span {
-		display: block;
-	}
-`;
 
 const CardContainer = styled.div`
 	position: relative;
