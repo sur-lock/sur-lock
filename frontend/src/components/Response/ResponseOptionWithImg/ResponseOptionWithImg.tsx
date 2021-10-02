@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import "antd/dist/antd.css";
-import { Card, Form, Input, Image, Radio, Space, Button } from "antd";
+import {
+	Card,
+	Form,
+	Input,
+	Image,
+	Radio,
+	Space,
+	Button,
+	RadioChangeEvent,
+} from "antd";
 
 interface questionData {
 	QuestionIdx: number;
@@ -16,15 +25,36 @@ export function ResponseOptionWithImg({
 	imgs,
 	sendData,
 }: questionData) {
+	const [Answer, setAnswer] = useState(0);
+
+	const onOptionChangeHandler = (e: RadioChangeEvent) => {
+		console.log("radio checked", e.target.value);
+		setAnswer(e.target.value);
+		sendData(QuestionIdx, e.target.value);
+	};
+
 	const renderOptions = () => {
-		console.log(1);
+		const imgCount = imgs.length;
+		const result = [];
+		for (let i = 0; i < imgCount; i += 1) {
+			result.push(
+				<Radio value={i} onChange={onOptionChangeHandler}>
+					<Image src={imgs[i]} />
+				</Radio>,
+			);
+		}
+		return result;
 	};
 	return (
 		<SurveyForm>
 			<Form layout="vertical" autoComplete="off" size="large">
 				<FormWrapper style={{ overflow: "hidden" }}>
 					<Form.Item name="SurveyTitle">
-						<Label>객관식 질문(이미지첨부)</Label>
+						<Label>{title}</Label>
+						<br />
+						<br />
+						<br />
+						<Radio.Group>{renderOptions()}</Radio.Group>
 					</Form.Item>
 				</FormWrapper>
 			</Form>

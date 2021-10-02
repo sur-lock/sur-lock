@@ -7,7 +7,7 @@ import {
 	PictureOutlined,
 	UploadOutlined,
 } from "@ant-design/icons";
-import { ResponseOption } from "components";
+import { ResponseOption, ResponseOptionWithImg } from "components";
 import "antd/dist/antd.css";
 import { Card } from "antd";
 import { Fab, Action } from "react-tiny-fab";
@@ -58,6 +58,12 @@ export function ResponseSurvey() {
 				title={sampleData.questions[1].title}
 				options={sampleData.questions[1].options}
 				QuestionIdx={1}
+				sendData={getDatafromChild}
+			/>
+			<ResponseOptionWithImg
+				title={sampleData.questions[2].title}
+				imgs={sampleData.questions[2].imgs}
+				QuestionIdx={2}
 				sendData={getDatafromChild}
 			/>
 		</CardContainer>

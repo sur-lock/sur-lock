@@ -53,6 +53,7 @@ export function ResponseOption({
 	const onOptionChangeHandler = (e: RadioChangeEvent) => {
 		console.log("radio checked", e.target.value);
 		setAnswer(e.target.value);
+		sendData(QuestionIdx, e.target.value);
 	};
 	const renderOptions = () => {
 		const result = [];
