@@ -23,10 +23,13 @@ module.exports = {
 			{ extensions: [".js", ".jsx", ".ts", ".tsx"] },
 		],
 		"jsx-a11y/no-noninteractive-element-interactions": 0,
+		camelcase: "off",
+		"@typescript-eslint/camelcase": "off",
 		"@typescript-eslint/explicit-module-boundary-types": "off",
 		"@typescript-eslint/ban-ts-comment": "off",
 		"@typescript-eslint/no-explicit-any": "off",
 		"no-param-reassign": "off",
 		"no-unneeded-ternary": "off",
+		"no-return-await": "off",
 	},
 };
