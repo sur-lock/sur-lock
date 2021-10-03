@@ -20,7 +20,7 @@ export function Header({ switchTheme }: HeaderProps) {
 							<Link to="/create">설문생성</Link>
 						</li>
 						<li>
-							<a href="/">응답하기</a>
+							<Link to="/response">응답하기</Link>
 						</li>
 						<li>
 							<ThemeToggle switchTheme={switchTheme} />
