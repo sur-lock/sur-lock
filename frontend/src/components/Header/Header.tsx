@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useAppDispatch, setUser } from "store";
 import { ThemeToggle } from "../ThemeToggle";
 
 interface HeaderProps {
@@ -15,6 +16,18 @@ interface KakaoLogin {
 	token_type: string;
 }
 
+interface UserInfo {
+	id: number;
+	connected_at: string;
+	kakao_account: {
+		profile: {
+			nickname: string;
+		};
+		profile_nickname_needs_agreement: boolean;
+	};
+	properties: { nickname: string };
+}
+
 declare global {
 	interface Window {
 		Kakao: any;
@@ -24,14 +37,22 @@ declare global {
 const { Kakao } = window;
 
 export function Header({ switchTheme }: HeaderProps) {
+	const dispatch = useAppDispatch();
+
 	useEffect(() => {
 		window.Kakao.init(process.env.REACT_APP_JAVASCRIPT_KEY);
 	}, []);
 
 	const handleLogin = () => {
 		Kakao.Auth.login({
-			success: (auth: KakaoLogin) => {
-				console.log(auth);
+			success: ({ access_token }: KakaoLogin) => {
+				Kakao.Auth.setAccessToken(access_token);
+				Kakao.API.request({
+					url: "/v2/user/me",
+					success: ({ id, properties: { nickname } }: UserInfo) => {
+						dispatch(setUser({ id, name: nickname }));
+					},
+				});
 			},
 			fail: (err: any) => {
 				console.error(err);
