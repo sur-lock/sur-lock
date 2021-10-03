@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { useAppDispatch, setUser } from "store";
+import { useAppSelector, useAppDispatch, setUser } from "store";
 import { ThemeToggle } from "../ThemeToggle";
 
 interface HeaderProps {
@@ -37,6 +37,7 @@ declare global {
 const { Kakao } = window;
 
 export function Header({ switchTheme }: HeaderProps) {
+	const { id } = useAppSelector(state => state.auth.user);
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
@@ -60,6 +61,12 @@ export function Header({ switchTheme }: HeaderProps) {
 		});
 	};
 
+	const handleLogout = () => {
+		Kakao.Auth.logout(() => {
+			dispatch(setUser({ id: 0, name: "" }));
+		});
+	};
+
 	return (
 		<Wrapper>
 			<div className="header-inner">
@@ -78,9 +85,15 @@ export function Header({ switchTheme }: HeaderProps) {
 							<ThemeToggle switchTheme={switchTheme} />
 						</li>
 					</ul>
-					<button onClick={handleLogin} type="submit">
-						로그인
-					</button>
+					{id ? (
+						<button onClick={handleLogout} type="submit">
+							로그아웃
+						</button>
+					) : (
+						<button onClick={handleLogin} type="submit">
+							로그인
+						</button>
+					)}
 				</nav>
 			</div>
 		</Wrapper>
