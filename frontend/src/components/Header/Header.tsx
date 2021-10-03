@@ -1,13 +1,72 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useAppSelector, useAppDispatch, setUser } from "store";
 import { ThemeToggle } from "../ThemeToggle";
 
 interface HeaderProps {
 	switchTheme: () => void;
 }
 
+interface KakaoLogin {
+	access_token: string;
+	expires_in: number;
+	refresh_token: string;
+	refresh_token_expires_in: number;
+	token_type: string;
+}
+
+interface UserInfo {
+	id: number;
+	connected_at: string;
+	kakao_account: {
+		profile: {
+			nickname: string;
+		};
+		profile_nickname_needs_agreement: boolean;
+	};
+	properties: { nickname: string };
+}
+
+declare global {
+	interface Window {
+		Kakao: any;
+	}
+}
+
+const { Kakao } = window;
+
 export function Header({ switchTheme }: HeaderProps) {
+	const { id } = useAppSelector(state => state.auth.user);
+	const dispatch = useAppDispatch();
+
+	useEffect(() => {
+		window.Kakao.init(process.env.REACT_APP_JAVASCRIPT_KEY);
+	}, []);
+
+	const handleLogin = () => {
+		Kakao.Auth.login({
+			success: ({ access_token }: KakaoLogin) => {
+				Kakao.Auth.setAccessToken(access_token);
+				Kakao.API.request({
+					url: "/v2/user/me",
+					success: ({ id, properties: { nickname } }: UserInfo) => {
+						dispatch(setUser({ id, name: nickname }));
+					},
+				});
+			},
+			fail: (err: any) => {
+				console.error(err);
+			},
+		});
+	};
+
+	const handleLogout = () => {
+		Kakao.Auth.logout(() => {
+			dispatch(setUser({ id: 0, name: "" }));
+		});
+	};
+
 	return (
 		<Wrapper>
 			<div className="header-inner">
@@ -25,10 +84,16 @@ export function Header({ switchTheme }: HeaderProps) {
 						<li>
 							<ThemeToggle switchTheme={switchTheme} />
 						</li>
-						<li className="btn">
-							<a href="/">로그인</a>
-						</li>
 					</ul>
+					{id ? (
+						<button onClick={handleLogout} type="submit">
+							로그아웃
+						</button>
+					) : (
+						<button onClick={handleLogin} type="submit">
+							로그인
+						</button>
+					)}
 				</nav>
 			</div>
 		</Wrapper>
@@ -48,25 +113,27 @@ const Wrapper = styled.header`
 			color: ${({ theme: { colors } }) => colors.secondary};
 		}
 		nav {
+			${({ theme: { display } }) => display.flexRow("space-between")}
 			ul {
 				display: flex;
 				font-size: ${({ theme: { fonts } }) => fonts.size.sm};
 				li {
 					list-style: none;
 					margin: 0 ${({ theme: { margins } }) => margins.xl};
-					&.btn {
-						a {
-							border: 1px solid ${({ theme: { colors } }) => colors.secondary};
-							padding: ${({ theme: { paddings } }) => paddings.base};
-							border-radius: 10px;
-						}
-					}
+
 					a {
 						text-transform: capitalize;
 						text-decoration: none;
 						color: ${({ theme: { colors } }) => colors.secondary};
 					}
 				}
+			}
+			button {
+				color: ${({ theme: { colors } }) => colors.secondary};
+				border: 1px solid ${({ theme: { colors } }) => colors.secondary};
+				padding: ${({ theme: { paddings } }) => paddings.base};
+				border-radius: 10px;
+				margin-top: -10px;
 			}
 		}
 	}
