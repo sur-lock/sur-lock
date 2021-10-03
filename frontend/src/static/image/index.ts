@@ -9,6 +9,7 @@ import afterjangminho from "./afterjangminho.png";
 import jangdongkyun from "./jangdongkyun.png";
 import afterjangdongkyun from "./afterjangdongkyun.png";
 import writingman from "./writingman.jpg";
+import background from "./background.png";
 
 export {
 	shinjoohwan,
@@ -22,4 +23,5 @@ export {
 	jangdongkyun,
 	afterjangdongkyun,
 	writingman,
+	background,
 };
