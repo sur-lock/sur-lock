@@ -225,8 +225,9 @@ export function CreateSurvey() {
 			console.log(contract);
 
 			try {
-				const data = await contract.getSurvey("surveyTest2");
+				const data = await contract.getSurvey("surveyTest3");
 				console.log("data: ", data);
+				console.log(typeof data);
 			} catch (err) {
 				console.log("Error: ", err);
 			}
@@ -249,7 +250,7 @@ export function CreateSurvey() {
 			console.log(sendedData);
 			const transaction = await contract.addSurvey(
 				"888888",
-				"surveyTest2",
+				"surveyTest3",
 				"2021-09-29T00:00:00",
 				"2021-10-29T23:59:59",
 				sendedData,
@@ -260,7 +261,6 @@ export function CreateSurvey() {
 	}
 	const onSubmit = () => {
 		// addSurvey();
-		// console.log("####################");
 		getSurvey();
 	};
 	const onAddOptional = () => {
