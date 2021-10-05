@@ -12,7 +12,12 @@ export function OptionalSurveyWithImg({
 	QuestionIdx,
 	sendData,
 }: sendInterface) {
-	const initialState = { qType: 2, title: "", options: [""], imgs: [""] };
+	const initialState = {
+		qType: "selectImg",
+		title: "",
+		options: [""],
+		imgs: [""],
+	};
 	const [optionModel, setOptionModel] = useState(initialState);
 	const [optionCount, setOptionCount] = useState(1);
 

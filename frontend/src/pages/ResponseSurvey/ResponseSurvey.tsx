@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import {
 	ResponseOption,
@@ -8,91 +8,288 @@ import {
 } from "components";
 import { RightOutlined, UploadOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
+import { ethers } from "ethers";
 import { Fab, Action } from "react-tiny-fab";
 import "react-tiny-fab/dist/styles.css";
 
-const sampleData = {
-	address: "",
-	startDate: "",
-	endDate: "",
-	title: "설문샘플",
-	discription: "샘플입니다",
-	questions: [
-		{
-			qType: 1,
-			title: "객관식1",
-			options: ["1", "2", "3", "4"],
-			imgs: [""],
-		},
-		{
-			qType: 2,
-			title: "객관식2",
-			options: [""],
-			imgs: [
-				"blob:http://localhost:3000/cdb3db3a-22b0-4f6e-81ee-c714d696e2b9",
-				"blob:http://localhost:3000/4bc22b92-6b5f-430a-8a2e-cd63250ce261",
-				"blob:http://localhost:3000/12eb53af-9348-48b0-ae59-24273f8e1e32",
-			],
-		},
-		{ qType: 3, title: "주관식3", options: ["샘플주관식"], imgs: [""] },
-		{
-			qType: 4,
-			title: "주관식4",
-			options: [""],
-			imgs: ["blob:http://localhost:3000/12eb53af-9348-48b0-ae59-24273f8e1e32"],
-		},
-	],
-};
+const surlockCA = "0x1B57F6A4c67cC0961aF90c3B4c1b599c8bD97759";
+const infuraProvider = new ethers.providers.InfuraProvider(
+	"ropsten",
+	"6d88878e015047cbad527b89ae00e284",
+);
+const surveyKey = "survey1";
+const private_key =
+	"0x9292c97646451b2a9540062e8ceb465f61cb29f17d0e55c116c95051049f54bd";
+const abi = [
+	{
+		inputs: [
+			{
+				internalType: "string",
+				name: "_respondent",
+				type: "string",
+			},
+			{
+				internalType: "string",
+				name: "_key",
+				type: "string",
+			},
+			{
+				internalType: "string[]",
+				name: "_response",
+				type: "string[]",
+			},
+		],
+		name: "addResponse",
+		outputs: [],
+		stateMutability: "nonpayable",
+		type: "function",
+	},
+	{
+		inputs: [
+			{
+				internalType: "string",
+				name: "_creator",
+				type: "string",
+			},
+			{
+				internalType: "string",
+				name: "_key",
+				type: "string",
+			},
+			{
+				internalType: "string",
+				name: "_startDate",
+				type: "string",
+			},
+			{
+				internalType: "string",
+				name: "_endDate",
+				type: "string",
+			},
+			{
+				components: [
+					{
+						internalType: "string",
+						name: "qType",
+						type: "string",
+					},
+					{
+						internalType: "string",
+						name: "title",
+						type: "string",
+					},
+					{
+						internalType: "string[]",
+						name: "options",
+						type: "string[]",
+					},
+					{
+						internalType: "string[]",
+						name: "imgs",
+						type: "string[]",
+					},
+				],
+				internalType: "struct SurLock.Question[]",
+				name: "_questions",
+				type: "tuple[]",
+			},
+		],
+		name: "addSurvey",
+		outputs: [],
+		stateMutability: "nonpayable",
+		type: "function",
+	},
+	{
+		inputs: [
+			{
+				internalType: "string",
+				name: "_key",
+				type: "string",
+			},
+		],
+		name: "getResponses",
+		outputs: [
+			{
+				internalType: "string[][]",
+				name: "",
+				type: "string[][]",
+			},
+		],
+		stateMutability: "view",
+		type: "function",
+	},
+	{
+		inputs: [
+			{
+				internalType: "string",
+				name: "_key",
+				type: "string",
+			},
+		],
+		name: "getSurvey",
+		outputs: [
+			{
+				components: [
+					{
+						internalType: "string",
+						name: "creator",
+						type: "string",
+					},
+					{
+						internalType: "string",
+						name: "startDate",
+						type: "string",
+					},
+					{
+						internalType: "string",
+						name: "endDate",
+						type: "string",
+					},
+					{
+						components: [
+							{
+								internalType: "string",
+								name: "qType",
+								type: "string",
+							},
+							{
+								internalType: "string",
+								name: "title",
+								type: "string",
+							},
+							{
+								internalType: "string[]",
+								name: "options",
+								type: "string[]",
+							},
+							{
+								internalType: "string[]",
+								name: "imgs",
+								type: "string[]",
+							},
+						],
+						internalType: "struct SurLock.Question[]",
+						name: "questions",
+						type: "tuple[]",
+					},
+					{
+						internalType: "string[][]",
+						name: "responses",
+						type: "string[][]",
+					},
+					{
+						internalType: "string[]",
+						name: "respondents",
+						type: "string[]",
+					},
+				],
+				internalType: "struct SurLock.Survey",
+				name: "",
+				type: "tuple",
+			},
+		],
+		stateMutability: "view",
+		type: "function",
+	},
+];
 
 export function ResponseSurvey() {
-	const initialState: { val: any; qType: number }[] = [];
-	for (let i = 0; i < sampleData.questions.length; i += 1) {
-		initialState.push({ val: null, qType: sampleData.questions[i].qType });
-	}
-	const [Answer, setAnswer] = useState(initialState);
-	console.log(initialState);
+	const [data, setData] = useState({ creator: "", endDate: "", questions: [] });
 
+	useEffect(() => {
+		async function getData() {
+			if (!surveyKey) {
+				console.error("No entered key of survey. Please enter the key.");
+				return;
+			}
+
+			if (infuraProvider) {
+				const contract = new ethers.Contract(surlockCA, abi, infuraProvider);
+
+				try {
+					const originData = await contract.getSurvey("surveyTest3");
+					// console.log("data: ", originData);
+					// console.log(typeof originData);
+					setData(originData);
+					console.log(originData);
+				} catch (err) {
+					console.log("Error: ", err);
+				}
+			}
+		}
+		getData();
+	}, []);
+
+	async function addResponse() {
+		if (infuraProvider) {
+			const wallet = new ethers.Wallet(private_key, infuraProvider);
+
+			const contract = new ethers.Contract(surlockCA, abi, wallet);
+
+			const answer: string[] = [];
+
+			for (let i = 1; i < answerSheet.length; i += 1) {
+				answer.push(String(answerSheet[i].val));
+			}
+
+			const transaction = await contract.addResponse(
+				"412350",
+				"surveyTest3",
+				answer,
+			);
+
+			await transaction.wait();
+			console.log(answer);
+			console.log("전송완료");
+		}
+	}
+
+	const answerSheet: { val: any; qType: string }[] = [];
+
+	for (let i = 0; i < data.questions.length; i += 1) {
+		answerSheet.push({ val: null, qType: data.questions[i][0] });
+	}
+
+	// console.log(answerSheet);
 	const getDatafromChild = (index: number, val: any) => {
-		const newAnswer = Answer;
-		newAnswer[index].val = val;
-		setAnswer(Answer => newAnswer);
+		answerSheet[index].val = val;
 	};
-	const count = sampleData.questions.length;
+	const count = data.questions.length;
 
 	const renderSurveys = () => {
 		const result = [];
 		for (let i = 0; i < count; i += 1) {
-			if (sampleData.questions[i].qType === 1) {
+			if (data.questions[i][0] === "select") {
 				result.push(
 					<ResponseOption
-						title={sampleData.questions[i].title}
-						options={sampleData.questions[i].options}
+						title={data.questions[i][1]}
+						options={data.questions[i][2]}
 						QuestionIdx={i}
 						sendData={getDatafromChild}
 					/>,
 				);
-			} else if (sampleData.questions[i].qType === 2) {
+			} else if (data.questions[i][0] === "selectImg") {
 				result.push(
 					<ResponseOptionWithImg
-						title={sampleData.questions[i].title}
-						imgs={sampleData.questions[i].imgs}
+						title={data.questions[i][1]}
+						imgs={data.questions[i][3]}
 						QuestionIdx={i}
 						sendData={getDatafromChild}
 					/>,
 				);
-			} else if (sampleData.questions[i].qType === 3) {
+			} else if (data.questions[i][0] === "write") {
 				result.push(
 					<ResponseAnswer
-						title={sampleData.questions[i].title}
+						title={data.questions[i][1]}
 						QuestionIdx={i}
 						sendData={getDatafromChild}
 					/>,
 				);
-			} else if (sampleData.questions[i].qType === 4) {
+			} else if (data.questions[i][0] === "writeImg") {
 				result.push(
 					<ResponseAnswerWithImg
-						title={sampleData.questions[i].title}
-						imgs={sampleData.questions[i].imgs}
+						title={data.questions[i][1]}
+						imgs={data.questions[i][3]}
 						QuestionIdx={i}
 						sendData={getDatafromChild}
 					/>,
@@ -104,7 +301,7 @@ export function ResponseSurvey() {
 	};
 
 	const onSubmitSurvey = () => {
-		console.log(Answer);
+		addResponse();
 	};
 
 	const moveToResult = () => {

@@ -9,7 +9,12 @@ interface sendInterface {
 }
 
 export function OptionalSurvey({ QuestionIdx, sendData }: sendInterface) {
-	const initialState = { qType: 1, title: "", options: [""], imgs: [""] };
+	const initialState = {
+		qType: "select",
+		title: "",
+		options: [""],
+		imgs: [""],
+	};
 	const [optionCount, setOptionCount] = useState(initialState);
 	const [optionNumber, setOptionNumber] = useState(1);
 
