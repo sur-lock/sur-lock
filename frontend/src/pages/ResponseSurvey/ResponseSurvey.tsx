@@ -11,15 +11,12 @@ import "antd/dist/antd.css";
 import { ethers } from "ethers";
 import { Fab, Action } from "react-tiny-fab";
 import "react-tiny-fab/dist/styles.css";
+import { useParams } from "react-router-dom";
 import surLock from "../../api/blockchain-metadata.json";
 
-const surlockCA = surLock.smart_contract.ca;
-const surveyKey = "survey1";
-const infuraProvider = new ethers.providers.InfuraProvider(
-	"ropsten",
-	surLock.infura_api_key,
-);
-
+type keyParams = {
+	surveyKey: string;
+};
 export function ResponseSurvey() {
 	const [data, setData] = useState({
 		title: "",
@@ -27,6 +24,13 @@ export function ResponseSurvey() {
 		endDate: "",
 		questions: [],
 	});
+	const surlockCA = surLock.smart_contract.ca;
+	const { surveyKey } = useParams<keyParams>();
+	const userKey = localStorage.getItem("user_key");
+	const infuraProvider = new ethers.providers.InfuraProvider(
+		"ropsten",
+		surLock.infura_api_key,
+	);
 
 	useEffect(() => {
 		async function getData() {
@@ -43,7 +47,7 @@ export function ResponseSurvey() {
 				);
 
 				try {
-					const originData = await contract.getSurvey("surveyTest3");
+					const originData = await contract.getSurvey(surveyKey);
 					setData(originData);
 				} catch (err) {
 					console.log("Error: ", err);
@@ -73,14 +77,12 @@ export function ResponseSurvey() {
 			}
 
 			const transaction = await contract.addResponse(
-				"412350",
-				"surveyTest3",
+				userKey,
+				surveyKey,
 				answer,
 			);
 
 			await transaction.wait();
-			console.log(answer);
-			console.log("전송완료");
 		}
 	}
 

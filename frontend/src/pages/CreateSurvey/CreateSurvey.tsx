@@ -34,36 +34,11 @@ export function CreateSurvey() {
 	const [QuestionCount, setQuestionCount] = useState(0);
 	const [Survey, setSurvey] = useState(initialState);
 	const surlockCA = surLock.smart_contract.ca;
-	const surveyKey = "survey1";
 	const infuraProvider = new ethers.providers.InfuraProvider(
 		"ropsten",
 		surLock.infura_api_key,
 	);
 
-	async function getSurvey() {
-		if (!surveyKey) {
-			console.error("No entered key of survey. Please enter the key.");
-			return;
-		}
-
-		if (infuraProvider) {
-			console.log({ infuraProvider });
-			const contract = new ethers.Contract(
-				surlockCA,
-				surLock.smart_contract.abi,
-				infuraProvider,
-			);
-			console.log(contract);
-
-			try {
-				const data = await contract.getSurvey("surveyTest3");
-				console.log("data: ", data);
-				console.log(typeof data);
-			} catch (err) {
-				console.log("Error: ", err);
-			}
-		}
-	}
 	async function addSurvey() {
 		if (infuraProvider) {
 			const wallet = new ethers.Wallet(
@@ -86,16 +61,32 @@ export function CreateSurvey() {
 				sendedData.push(tempQuestion);
 			}
 			console.log(sendedData);
-			const transaction = await contract.addSurvey(
-				Survey.title,
-				"888888",
-				"surveyTest3",
-				"2021-09-29T00:00:00",
-				"2021-10-29T23:59:59",
-				sendedData,
-			);
 
-			await transaction.wait();
+			const userKey = localStorage.getItem("user_key");
+			if (userKey) {
+				if (userKey === "") {
+					// eslint-disable-next-line no-alert
+					alert("로그인 후 이용가능합니다.");
+				} else {
+					const time = new Date().getTime();
+					const surveyKey = userKey + time;
+					const transaction = await contract.addSurvey(
+						Survey.title,
+						userKey,
+						surveyKey,
+						"2021-09-29T00:00:00",
+						"2021-10-29T23:59:59",
+						sendedData,
+					);
+
+					console.log(surveyKey);
+
+					await transaction.wait();
+				}
+			} else {
+				// eslint-disable-next-line no-alert
+				alert("로그인 후 이용가능합니다.");
+			}
 		}
 	}
 	const onSubmit = () => {
