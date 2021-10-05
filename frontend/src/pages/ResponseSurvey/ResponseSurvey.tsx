@@ -211,6 +211,7 @@ export function ResponseSurvey() {
 					// console.log("data: ", originData);
 					// console.log(typeof originData);
 					setData(originData);
+					console.log(originData);
 				} catch (err) {
 					console.log("Error: ", err);
 				}
@@ -218,6 +219,30 @@ export function ResponseSurvey() {
 		}
 		getData();
 	}, []);
+
+	async function addResponse() {
+		if (infuraProvider) {
+			const wallet = new ethers.Wallet(private_key, infuraProvider);
+
+			const contract = new ethers.Contract(surlockCA, abi, wallet);
+
+			const answer: string[] = [];
+
+			for (let i = 1; i < answerSheet.length; i += 1) {
+				answer.push(String(answerSheet[i].val));
+			}
+
+			const transaction = await contract.addResponse(
+				"412350",
+				"surveyTest3",
+				answer,
+			);
+
+			await transaction.wait();
+			console.log(answer);
+			console.log("전송완료");
+		}
+	}
 
 	const answerSheet: { val: any; qType: string }[] = [];
 
@@ -276,7 +301,7 @@ export function ResponseSurvey() {
 	};
 
 	const onSubmitSurvey = () => {
-		console.log(answerSheet);
+		addResponse();
 	};
 
 	const moveToResult = () => {
