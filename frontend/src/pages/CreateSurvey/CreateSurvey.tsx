@@ -20,6 +20,7 @@ import {
 
 import { Fab, Action } from "react-tiny-fab";
 import "react-tiny-fab/dist/styles.css";
+import surLock from "../../api/blockchain-metadata.json";
 
 export function CreateSurvey() {
 	const initialState = {
@@ -32,186 +33,12 @@ export function CreateSurvey() {
 	};
 	const [QuestionCount, setQuestionCount] = useState(0);
 	const [Survey, setSurvey] = useState(initialState);
-	const surlockCA = "0x1B57F6A4c67cC0961aF90c3B4c1b599c8bD97759";
+	const surlockCA = surLock.smart_contract.ca;
+	const surveyKey = "survey1";
 	const infuraProvider = new ethers.providers.InfuraProvider(
 		"ropsten",
-		"6d88878e015047cbad527b89ae00e284",
+		surLock.infura_api_key,
 	);
-	const surveyKey = "survey1";
-	const private_key =
-		"0x9292c97646451b2a9540062e8ceb465f61cb29f17d0e55c116c95051049f54bd";
-	const abi = [
-		{
-			inputs: [
-				{
-					internalType: "string",
-					name: "_respondent",
-					type: "string",
-				},
-				{
-					internalType: "string",
-					name: "_key",
-					type: "string",
-				},
-				{
-					internalType: "string[]",
-					name: "_response",
-					type: "string[]",
-				},
-			],
-			name: "addResponse",
-			outputs: [],
-			stateMutability: "nonpayable",
-			type: "function",
-		},
-		{
-			inputs: [
-				{
-					internalType: "string",
-					name: "_creator",
-					type: "string",
-				},
-				{
-					internalType: "string",
-					name: "_key",
-					type: "string",
-				},
-				{
-					internalType: "string",
-					name: "_startDate",
-					type: "string",
-				},
-				{
-					internalType: "string",
-					name: "_endDate",
-					type: "string",
-				},
-				{
-					components: [
-						{
-							internalType: "string",
-							name: "qType",
-							type: "string",
-						},
-						{
-							internalType: "string",
-							name: "title",
-							type: "string",
-						},
-						{
-							internalType: "string[]",
-							name: "options",
-							type: "string[]",
-						},
-						{
-							internalType: "string[]",
-							name: "imgs",
-							type: "string[]",
-						},
-					],
-					internalType: "struct SurLock.Question[]",
-					name: "_questions",
-					type: "tuple[]",
-				},
-			],
-			name: "addSurvey",
-			outputs: [],
-			stateMutability: "nonpayable",
-			type: "function",
-		},
-		{
-			inputs: [
-				{
-					internalType: "string",
-					name: "_key",
-					type: "string",
-				},
-			],
-			name: "getResponses",
-			outputs: [
-				{
-					internalType: "string[][]",
-					name: "",
-					type: "string[][]",
-				},
-			],
-			stateMutability: "view",
-			type: "function",
-		},
-		{
-			inputs: [
-				{
-					internalType: "string",
-					name: "_key",
-					type: "string",
-				},
-			],
-			name: "getSurvey",
-			outputs: [
-				{
-					components: [
-						{
-							internalType: "string",
-							name: "creator",
-							type: "string",
-						},
-						{
-							internalType: "string",
-							name: "startDate",
-							type: "string",
-						},
-						{
-							internalType: "string",
-							name: "endDate",
-							type: "string",
-						},
-						{
-							components: [
-								{
-									internalType: "string",
-									name: "qType",
-									type: "string",
-								},
-								{
-									internalType: "string",
-									name: "title",
-									type: "string",
-								},
-								{
-									internalType: "string[]",
-									name: "options",
-									type: "string[]",
-								},
-								{
-									internalType: "string[]",
-									name: "imgs",
-									type: "string[]",
-								},
-							],
-							internalType: "struct SurLock.Question[]",
-							name: "questions",
-							type: "tuple[]",
-						},
-						{
-							internalType: "string[][]",
-							name: "responses",
-							type: "string[][]",
-						},
-						{
-							internalType: "string[]",
-							name: "respondents",
-							type: "string[]",
-						},
-					],
-					internalType: "struct SurLock.Survey",
-					name: "",
-					type: "tuple",
-				},
-			],
-			stateMutability: "view",
-			type: "function",
-		},
-	];
 
 	async function getSurvey() {
 		if (!surveyKey) {
@@ -221,7 +48,11 @@ export function CreateSurvey() {
 
 		if (infuraProvider) {
 			console.log({ infuraProvider });
-			const contract = new ethers.Contract(surlockCA, abi, infuraProvider);
+			const contract = new ethers.Contract(
+				surlockCA,
+				surLock.smart_contract.abi,
+				infuraProvider,
+			);
 			console.log(contract);
 
 			try {
@@ -235,9 +66,16 @@ export function CreateSurvey() {
 	}
 	async function addSurvey() {
 		if (infuraProvider) {
-			const wallet = new ethers.Wallet(private_key, infuraProvider);
+			const wallet = new ethers.Wallet(
+				surLock.sender.private_key,
+				infuraProvider,
+			);
 
-			const contract = new ethers.Contract(surlockCA, abi, wallet);
+			const contract = new ethers.Contract(
+				surlockCA,
+				surLock.smart_contract.abi,
+				wallet,
+			);
 			const sendedData: any[] = [];
 			for (let i = 0; i < Survey.questions.length; i += 1) {
 				const tempQuestion: any[] = [];
@@ -249,6 +87,7 @@ export function CreateSurvey() {
 			}
 			console.log(sendedData);
 			const transaction = await contract.addSurvey(
+				Survey.title,
 				"888888",
 				"surveyTest3",
 				"2021-09-29T00:00:00",
@@ -260,8 +99,8 @@ export function CreateSurvey() {
 		}
 	}
 	const onSubmit = () => {
-		// addSurvey();
-		getSurvey();
+		addSurvey();
+		// getSurvey();
 	};
 	const onAddOptional = () => {
 		const newSurvey = Survey;
