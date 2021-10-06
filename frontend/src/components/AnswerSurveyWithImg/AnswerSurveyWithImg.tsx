@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import "antd/dist/antd.css";
 import { Card, Form, Input, Image, Button } from "antd";
+import axios from "axios";
 
 interface sendInterface {
 	QuestionIdx: number;
@@ -12,6 +13,7 @@ export function AnswerSurveyWithImg({ QuestionIdx, sendData }: sendInterface) {
 	const initialState = { ans: "", src: "" };
 
 	const [Answer, setPreview] = useState(initialState);
+	const [imagePreview, setImagePreview] = useState("");
 
 	const onComplete = () => {
 		sendData(QuestionIdx, Answer);
@@ -27,8 +29,25 @@ export function AnswerSurveyWithImg({ QuestionIdx, sendData }: sendInterface) {
 		const { files } = event.target;
 
 		if (files) {
-			newAnswer.src = URL.createObjectURL(files[0]);
-			setPreview(Answer => newAnswer);
+			const formData = new FormData();
+			formData.append("imageFile", files[0]);
+			const newImagePreview = URL.createObjectURL(files[0]);
+			setImagePreview(newImagePreview);
+
+			axios({
+				method: "post",
+				url: "http://j5a501.p.ssafy.io:8080/images/upload",
+				data: formData,
+				headers: {
+					"Content-Type": "multipart/form-data",
+				},
+			}).then(e => {
+				// console.log(e);
+				newAnswer.src = e.data.response;
+				setPreview(Answer => newAnswer);
+				// console.log(newOptionImgs);
+				console.log(Answer);
+			});
 		}
 	};
 	return (
@@ -42,7 +61,7 @@ export function AnswerSurveyWithImg({ QuestionIdx, sendData }: sendInterface) {
 						<br />
 						<ImageContainer className="addNew">
 							<input accept="image/*" type="file" onChange={fileHandler} />
-							<Image className="preview" src={Answer.src} />
+							<Image className="preview" src={imagePreview} />
 						</ImageContainer>
 						<Input
 							onChange={onTitleChangeHandler}
