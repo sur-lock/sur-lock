@@ -10,6 +10,7 @@ import jangdongkyun from "./jangdongkyun.png";
 import afterjangdongkyun from "./afterjangdongkyun.png";
 import writingman from "./writingman.jpg";
 import background from "./background.png";
+import kakaoLoginSmall from "./kakao_login_small.png";
 
 export {
 	shinjoohwan,
@@ -24,4 +25,5 @@ export {
 	afterjangdongkyun,
 	writingman,
 	background,
+	kakaoLoginSmall,
 };
