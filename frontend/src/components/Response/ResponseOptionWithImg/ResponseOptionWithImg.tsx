@@ -38,7 +38,7 @@ export function ResponseOptionWithImg({
 		for (let i = 0; i < imgCount; i += 1) {
 			result.push(
 				<Radio value={i} onChange={onOptionChangeHandler}>
-					<Image src={imgs[i]} />
+					<Image src={`http://j5a501.p.ssafy.io:8080/images/${imgs[i]}`} />
 				</Radio>,
 			);
 		}
