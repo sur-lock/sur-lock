@@ -42,7 +42,8 @@ const Hole = styled.div<{ positionX: number; positionY: number }>`
 	left: ${props => props.positionX - 200}px;
 	border-radius: 50%;
 	background: url(${background});
-	background-size: cover;
+	background-size: contain;
 	background-attachment: fixed;
+	background-position: center;
 	box-shadow: inset 0 0 10px 10px rgba(0, 0, 0, 0.2);
 `;
