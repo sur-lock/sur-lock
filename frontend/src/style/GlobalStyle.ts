@@ -18,6 +18,7 @@ export const GlobalStyle = createGlobalStyle`
 				font-family: ${theme.fonts.family.base};
 				font-weight: ${theme.fonts.weight.normal};
 				font-size: ${theme.fonts.size.base};
+				background-color: ${theme.colors.phantomBlue};
 			}
 		`;
 	}}
