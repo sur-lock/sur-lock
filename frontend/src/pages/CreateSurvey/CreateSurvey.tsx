@@ -89,52 +89,55 @@ export function CreateSurvey() {
 			}
 		}
 	}
+
 	const onSubmit = () => {
 		addSurvey();
 		// getSurvey();
 	};
+
 	const onAddOptional = () => {
-		const newSurvey = Survey;
+		const newSurvey = { ...Survey };
 		newSurvey.questions.push({
 			qType: "select",
 			title: "",
 			options: [""],
 			imgs: [""],
 		});
-		setSurvey(Survey => newSurvey);
+		setSurvey(newSurvey);
 		setQuestionCount(QuestionCount + 1);
 	};
+
 	const onAddOptionalWithImage = () => {
-		const newSurvey = Survey;
+		const newSurvey = { ...Survey };
 		newSurvey.questions.push({
 			qType: "selectImg",
 			title: "",
 			options: [""],
 			imgs: [""],
 		});
-		setSurvey(Survey => newSurvey);
+		setSurvey(newSurvey);
 		setQuestionCount(QuestionCount + 1);
 	};
 	const onAddAnswer = () => {
-		const newSurvey = Survey;
+		const newSurvey = { ...Survey };
 		newSurvey.questions.push({
 			qType: "write",
 			title: "",
 			options: [""],
 			imgs: [""],
 		});
-		setSurvey(Survey => newSurvey);
+		setSurvey(newSurvey);
 		setQuestionCount(QuestionCount + 1);
 	};
 	const onAddAnswerWithImage = () => {
-		const newSurvey = Survey;
+		const newSurvey = { ...Survey };
 		newSurvey.questions.push({
 			qType: "writeImg",
 			title: "",
 			options: [""],
 			imgs: [""],
 		});
-		setSurvey(Survey => newSurvey);
+		setSurvey(newSurvey);
 		setQuestionCount(QuestionCount + 1);
 	};
 
@@ -143,20 +146,20 @@ export function CreateSurvey() {
 			const newSurvey = Survey;
 			newSurvey.title = val.title;
 			newSurvey.discription = val.disc;
-			setSurvey(Survey => newSurvey);
+			setSurvey(newSurvey);
 		} else if (Survey.questions[index].qType === "write") {
 			const newSurvey = Survey;
 			newSurvey.questions[index].title = val;
-			setSurvey(Survey => newSurvey);
+			setSurvey(newSurvey);
 		} else if (Survey.questions[index].qType === "writeImg") {
 			const newSurvey = Survey;
 			newSurvey.questions[index].title = val.ans;
 			newSurvey.questions[index].imgs[0] = val.src;
-			setSurvey(Survey => newSurvey);
+			setSurvey(newSurvey);
 		} else {
 			const newSurvey = Survey;
 			newSurvey.questions[index] = val;
-			setSurvey(Survey => newSurvey);
+			setSurvey(newSurvey);
 		}
 		console.log(Survey);
 	};
@@ -191,8 +194,7 @@ export function CreateSurvey() {
 
 	return (
 		<CardContainer>
-			<Title>설문조사 생성</Title>
-			{renderSurveys()}
+			<Questions>{renderSurveys()}</Questions>
 			<Fab icon="+">
 				<Action text="제출" onClick={onSubmit}>
 					<UploadOutlined />
@@ -214,38 +216,19 @@ export function CreateSurvey() {
 	);
 }
 
-const Label = styled.h1`
-	font-size: 3rem;
-	float: left;
-	margin-bottom: 10px;
-	coler: #fff;
-	span {
-		display: block;
-	}
-`;
-const FormWrapper = styled.div`
-	margin-top: 15px;
-	margin-bottom: 15px;
-	font-size: 2rem;
-`;
-
 const CardContainer = styled.div`
-	position: relative;
+	position: absolute;
+	top: 0;
+	left: 0;
 	width: 100%;
-	height: 100%;
-
+	padding-top: 200px;
 	text-align: center;
-	background: ${({ theme: { colors } }) => colors.phantomBlue};
-	font-size: ${({ theme: { fonts } }) => fonts.size.title};
-	${({ theme: { display } }) => display.flexCol()}
+	${({ theme: { display } }) => display.flexRow()}
 `;
 
-const Title = styled.h1`
-	font-size: 10rem;
-	text-align: center;
-	color: #fff;
-	line-height: 130px;
-	span {
-		display: block;
-	}
+const Questions = styled.div`
+	width: 45%;
+	${({ theme: { display } }) => display.flexCol()}
+	background-color: ${({ theme: { colors } }) => colors.tertiary};
+	margin-bottom: 50px;
 `;

@@ -22,8 +22,9 @@ export function AnswerSurveyWithImg({ QuestionIdx, sendData }: sendInterface) {
 	const onTitleChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
 		const newAnswer = Answer;
 		newAnswer.ans = e.currentTarget.value;
-		setPreview(Answer => newAnswer);
+		setPreview(newAnswer);
 	};
+
 	const fileHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const newAnswer = Answer;
 		const { files } = event.target;
@@ -42,18 +43,16 @@ export function AnswerSurveyWithImg({ QuestionIdx, sendData }: sendInterface) {
 					"Content-Type": "multipart/form-data",
 				},
 			}).then(e => {
-				// console.log(e);
 				newAnswer.src = e.data.response;
-				setPreview(Answer => newAnswer);
-				// console.log(newOptionImgs);
-				console.log(Answer);
+				setPreview(newAnswer);
 			});
 		}
 	};
+
 	return (
 		<SurveyForm>
 			<Form layout="vertical" autoComplete="off" size="large">
-				<FormWrapper style={{ overflow: "hidden" }}>
+				<FormWrapper>
 					<Form.Item name="SurveyTitle">
 						<Label>주관식 질문(이미지 첨부)</Label>
 						<br />
@@ -75,35 +74,34 @@ export function AnswerSurveyWithImg({ QuestionIdx, sendData }: sendInterface) {
 	);
 }
 
-const Buttons = styled(Button)`
-	position: relative;
-	float: right;
-	top: 90%;
-	margin: 5px;
+const SurveyForm = styled(Card)`
+	width: 80%;
+	padding: 20px;
+	margin: 20px;
+	background-color: ${({ theme: { colors } }) => colors.tertiary};
+	color: ${({ theme: { colors } }) => colors.secondary};
+	border-color: ${({ theme: { colors } }) => colors.tertiary};
 `;
-const ImageContainer = styled.div`
-	display: block;
-	margin-top: 10px;
-	margin-bottom: 10px;
+
+const FormWrapper = styled.div`
+	font-size: 2rem;
 `;
 
 const Label = styled.h1`
 	font-size: 3rem;
 	float: left;
 	margin-bottom: 10px;
-	coler: #fff;
-	span {
-		display: block;
-	}
-`;
-const FormWrapper = styled.div`
-	display: block;
-	font-size: 2rem;
+	color: ${({ theme: { colors } }) => colors.secondary};
 `;
 
-const SurveyForm = styled(Card)`
+const ImageContainer = styled.div`
+	margin-top: 10px;
+	margin-bottom: 10px;
+`;
+
+const Buttons = styled(Button)`
 	position: relative;
-	width: 65%;
-	padding: 20px;
-	margin: 20px;
+	float: right;
+	top: 90%;
+	margin: 5px;
 `;

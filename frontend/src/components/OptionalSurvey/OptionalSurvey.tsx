@@ -24,7 +24,7 @@ export function OptionalSurvey({ QuestionIdx, sendData }: sendInterface) {
 		newOptions.push("");
 		newOptionCount.options = newOptions;
 
-		setOptionCount(optionCount => newOptionCount);
+		setOptionCount(newOptionCount);
 		setOptionNumber(optionNumber + 1);
 	};
 
@@ -35,7 +35,7 @@ export function OptionalSurvey({ QuestionIdx, sendData }: sendInterface) {
 			newOptions.pop();
 			newOptionCount.options = newOptions;
 
-			setOptionCount(optionCount => newOptionCount);
+			setOptionCount(newOptionCount);
 			setOptionNumber(optionNumber - 1);
 		}
 	};
@@ -45,13 +45,13 @@ export function OptionalSurvey({ QuestionIdx, sendData }: sendInterface) {
 			const newOptionCount = optionCount;
 			newOptionCount.options[index] = e.currentTarget.value;
 
-			setOptionCount(optionCount => newOptionCount);
+			setOptionCount(newOptionCount);
 		};
 
 	const onTitleChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
 		const newOptionCount = optionCount;
 		newOptionCount.title = e.currentTarget.value;
-		setOptionCount(optionCount => newOptionCount);
+		setOptionCount(newOptionCount);
 	};
 
 	const onComplete = () => {
@@ -79,7 +79,7 @@ export function OptionalSurvey({ QuestionIdx, sendData }: sendInterface) {
 	return (
 		<SurveyForm>
 			<Form layout="vertical" autoComplete="off" size="large">
-				<FormWrapper style={{ overflow: "hidden" }}>
+				<FormWrapper>
 					<Form.Item name="SurveyTitle">
 						<Label>객관식 질문</Label>
 						<Input
@@ -99,11 +99,17 @@ export function OptionalSurvey({ QuestionIdx, sendData }: sendInterface) {
 	);
 }
 
-const Buttons = styled(Button)`
-	position: relative;
-	float: right;
-	top: 90%;
-	margin: 5px;
+const SurveyForm = styled(Card)`
+	width: 80%;
+	padding: 20px;
+	margin: 20px;
+	background-color: ${({ theme: { colors } }) => colors.tertiary};
+	color: ${({ theme: { colors } }) => colors.secondary};
+	border-color: ${({ theme: { colors } }) => colors.tertiary};
+`;
+
+const FormWrapper = styled.div`
+	font-size: 2rem;
 `;
 
 const Radios = styled.div`
@@ -114,30 +120,12 @@ const Label = styled.h1`
 	font-size: 3rem;
 	float: left;
 	margin-bottom: 10px;
-	coler: #fff;
-	span {
-		display: block;
-	}
-`;
-const FormWrapper = styled.div`
-	font-size: 2rem;
+	color: ${({ theme: { colors } }) => colors.secondary};
 `;
 
-const CardContainer = styled.div`
-	margin-top: 15px;
-	margin-bottom: 15px;
-	width: 100%;
-	height: 100%;
-	text-align: center;
-
-	background: ${({ theme: { colors } }) => colors.phantomBlue};
-	font-size: ${({ theme: { fonts } }) => fonts.size.title};
-	${({ theme: { display } }) => display.flexCol()}
-`;
-
-const SurveyForm = styled(Card)`
+const Buttons = styled(Button)`
 	position: relative;
-	width: 65%;
-	padding: 20px;
-	margin: 20px;
+	float: right;
+	top: 90%;
+	margin: 5px;
 `;
