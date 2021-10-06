@@ -21,6 +21,8 @@ export function OptionalSurveyWithImg({
 	};
 	const [optionModel, setOptionModel] = useState(initialState);
 	const [optionCount, setOptionCount] = useState(1);
+	const initPreview: string[] = [];
+	const [imagePreview, setImagePreview] = useState(initPreview);
 
 	const onAdd = () => {
 		const newOptionModel = optionModel;
@@ -30,9 +32,12 @@ export function OptionalSurveyWithImg({
 		const newOptionImgs = [...optionModel.imgs];
 		newOptionImgs.push("");
 		newOptionModel.imgs = newOptionImgs;
+		const newImagePreview = [...imagePreview];
+		newImagePreview.push("");
 
 		setOptionModel(optionModel => newOptionModel);
 		setOptionCount(optionCount + 1);
+		setImagePreview(imagePreview => newImagePreview);
 		console.log(optionModel);
 	};
 
@@ -63,11 +68,14 @@ export function OptionalSurveyWithImg({
 			const newOptionModel = optionModel;
 			const newOptionImgs = [...optionModel.imgs];
 			const { files } = event.target;
+			const newImagePreview = [...imagePreview];
 
 			if (files) {
 				newOptionImgs[idx] = URL.createObjectURL(files[0]);
 				newOptionModel.imgs = newOptionImgs;
-				console.log(files[0]);
+				newImagePreview[idx] = URL.createObjectURL(files[0]);
+				console.log("#####################");
+				console.log(URL.createObjectURL(files[0]));
 				const formData = new FormData();
 				formData.append("imageFile", files[0]);
 
@@ -78,9 +86,16 @@ export function OptionalSurveyWithImg({
 					headers: {
 						"Content-Type": "multipart/form-data",
 					},
-				}).then(e => console.log(e));
+				}).then(e => {
+					// console.log(e);
+					newOptionImgs[idx] = e.data.response;
+					// console.log(newOptionImgs);
+				});
 			}
 			setOptionModel(optionModel => newOptionModel);
+			setImagePreview(imagePreview => newImagePreview);
+			// console.log(optionModel);
+			// console.log(imagePreview);
 		};
 
 	const renderOptions = () => {
@@ -99,7 +114,7 @@ export function OptionalSurveyWithImg({
 								/>
 							</form>
 
-							<Image className="preview" src={optionModel.imgs[i]} />
+							<Image className="preview" src={imagePreview[i]} />
 						</ImageContainer>
 					</Radio>
 				</Radios>,

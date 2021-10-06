@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import "antd/dist/antd.css";
 import { Card, Form, Input, Image } from "antd";
+import axios from "axios";
 
 interface questionData {
 	QuestionIdx: number;
@@ -43,7 +44,7 @@ export function ResponseAnswerWithImg({
 						<br />
 						<br />
 						<br />
-						<Image src={imgs[0]} />
+						<Image src={`http://j5a501.p.ssafy.io:8080/images/${imgs[0]}`} />
 						<Input
 							onChange={onAnswerChangeHandler}
 							placeholder="답변을 입력해주세요"
