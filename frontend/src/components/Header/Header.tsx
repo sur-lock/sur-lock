@@ -53,7 +53,6 @@ export function Header({ switchTheme }: HeaderProps) {
 					url: "/v2/user/me",
 					success: ({ id, properties: { nickname } }: UserInfo) => {
 						dispatch(setUser({ id, name: nickname }));
-						localStorage.setItem("user_key", String(id));
 					},
 				});
 			},

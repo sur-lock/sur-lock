@@ -1,6 +1,9 @@
+/* eslint-disable react/jsx-no-bind */
 import React, { useState } from "react";
 import styled from "styled-components";
 import { ethers } from "ethers";
+import { useHistory } from "react-router-dom";
+import { useAppSelector, useAppDispatch, setUser } from "store";
 import {
 	CheckOutlined,
 	FileAddOutlined,
@@ -23,6 +26,7 @@ import "react-tiny-fab/dist/styles.css";
 import surLock from "../../api/blockchain-metadata.json";
 
 export function CreateSurvey() {
+	const { id, name } = useAppSelector(state => state.auth.user);
 	const initialState = {
 		address: "",
 		startDate: "",
@@ -31,9 +35,11 @@ export function CreateSurvey() {
 		discription: "",
 		questions: [{ qType: "none", title: "", options: [""], imgs: [""] }],
 	};
+	const history = useHistory();
 	const [QuestionCount, setQuestionCount] = useState(0);
 	const [Survey, setSurvey] = useState(initialState);
 	const surlockCA = surLock.smart_contract.ca;
+	let SurveyURL = "";
 	const infuraProvider = new ethers.providers.InfuraProvider(
 		"ropsten",
 		surLock.infura_api_key,
@@ -51,7 +57,17 @@ export function CreateSurvey() {
 				surLock.smart_contract.abi,
 				wallet,
 			);
+			if (Survey.title === "") {
+				alert("설문 제목을 입력해주세요");
+				return;
+			}
+			if (Survey.questions.length < 2) {
+				alert("최소 하나의 설문문항을 입력해주세요");
+				return;
+			}
+
 			const sendedData: any[] = [];
+
 			for (let i = 0; i < Survey.questions.length; i += 1) {
 				const tempQuestion: any[] = [];
 				tempQuestion.push(Survey.questions[i].qType);
@@ -60,28 +76,29 @@ export function CreateSurvey() {
 				tempQuestion.push(Survey.questions[i].imgs);
 				sendedData.push(tempQuestion);
 			}
-			console.log(sendedData);
 
-			const userKey = localStorage.getItem("user_key");
-			if (userKey) {
-				if (userKey === "") {
+			if (id) {
+				if (String(id) === "") {
 					// eslint-disable-next-line no-alert
 					alert("로그인 후 이용가능합니다.");
 				} else {
 					const time = new Date().getTime();
-					const surveyKey = userKey + time;
+					const surveyKey = String(id) + time;
 					const transaction = await contract.addSurvey(
 						Survey.title,
-						userKey,
+						String(id),
 						surveyKey,
 						"2021-09-29T00:00:00",
 						"2021-10-29T23:59:59",
 						sendedData,
 					);
 
-					console.log(surveyKey);
-
+					SurveyURL = `http://j5a501.p.ssafy.io/response/${surveyKey}`;
 					await transaction.wait();
+					history.push({
+						pathname: "/complete",
+						state: { SurveyURL },
+					});
 				}
 			} else {
 				// eslint-disable-next-line no-alert
@@ -90,10 +107,10 @@ export function CreateSurvey() {
 		}
 	}
 
-	const onSubmit = () => {
-		addSurvey();
-		// getSurvey();
-	};
+	async function onSubmit() {
+		await addSurvey();
+		// console.log(SurveyURL);
+	}
 
 	const onAddOptional = () => {
 		const newSurvey = { ...Survey };
@@ -161,7 +178,6 @@ export function CreateSurvey() {
 			newSurvey.questions[index] = val;
 			setSurvey(newSurvey);
 		}
-		console.log(Survey);
 	};
 
 	const renderSurveys = () => {

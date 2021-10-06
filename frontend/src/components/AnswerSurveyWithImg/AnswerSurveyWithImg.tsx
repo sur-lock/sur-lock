@@ -16,6 +16,15 @@ export function AnswerSurveyWithImg({ QuestionIdx, sendData }: sendInterface) {
 	const [imagePreview, setImagePreview] = useState("");
 
 	const onComplete = () => {
+		if (Answer.ans === "") {
+			alert("문항을 입력해주세요");
+			return;
+		}
+
+		if (Answer.src === "") {
+			alert("이미지를 입력해주세요");
+			return;
+		}
 		sendData(QuestionIdx, Answer);
 	};
 
