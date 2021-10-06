@@ -44,7 +44,11 @@ export function ResponseAnswerWithImg({
 						<br />
 						<br />
 						<br />
-						<Image src={`http://j5a501.p.ssafy.io:8080/images/${imgs[0]}`} />
+						<Image
+							width="100%"
+							height="60%"
+							src={`http://j5a501.p.ssafy.io:8080/images/${imgs[0]}`}
+						/>
 						<Input
 							onChange={onAnswerChangeHandler}
 							placeholder="답변을 입력해주세요"

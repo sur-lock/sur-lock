@@ -98,7 +98,7 @@ export function Header({ switchTheme }: HeaderProps) {
 }
 
 const Wrapper = styled.header`
-	position: absolute;
+	position: relative;
 	z-index: 99;
 	width: 100%;
 	padding: 60px;

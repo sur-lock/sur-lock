@@ -41,6 +41,9 @@ export function MainPage() {
 }
 
 const StyledSlider = styled(Swiper)`
+	position: absolute;
+	top: 0px;
+	left: 0px;
 	width: 100vw !important;
 	height: 100vh !important;
 

@@ -38,7 +38,11 @@ export function ResponseOptionWithImg({
 		for (let i = 0; i < imgCount; i += 1) {
 			result.push(
 				<Radio value={i} onChange={onOptionChangeHandler}>
-					<Image src={`http://j5a501.p.ssafy.io:8080/images/${imgs[i]}`} />
+					<Image
+						height="100px"
+						width="100px"
+						src={`http://j5a501.p.ssafy.io:8080/images/${imgs[i]}`}
+					/>
 				</Radio>,
 			);
 		}
@@ -60,25 +64,12 @@ export function ResponseOptionWithImg({
 		</SurveyForm>
 	);
 }
-const Buttons = styled(Button)`
-	position: relative;
-	float: right;
-	top: 90%;
-	margin: 5px;
-`;
 
-const ImageContainer = styled.div`
-	width: 100%;
-	height: 100%;
-	display: block;
+const ImageContainer = styled(Image)`
+	width: 35%;
+	height: 35%;
 	margin-top: 10px;
 	margin-bottom: 10px;
-`;
-
-const Radios = styled.div`
-	width: 30%;
-	height: auto;
-	float: left;
 `;
 
 const Label = styled.h1`
