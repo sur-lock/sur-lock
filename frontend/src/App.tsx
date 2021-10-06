@@ -30,8 +30,7 @@ export default function App() {
 				<Switch>
 					<Route exact path="/" component={MainPage} />
 					<Route exact path="/create" component={CreateSurvey} />
-					<Route exact path="/response" component={ResponseSurvey} />
-					<Route exact path="/response/:surveyURL" component={ResponseSurvey} />
+					<Route exact path="/response/:surveyKey" component={ResponseSurvey} />
 				</Switch>
 			</Router>
 		</ThemeProvider>

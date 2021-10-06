@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import "antd/dist/antd.css";
 import { Card, Form, Input, Image, Radio, Space, Button } from "antd";
+import axios from "axios";
 
 interface sendInterface {
 	QuestionIdx: number;
@@ -62,9 +63,22 @@ export function OptionalSurveyWithImg({
 			const newOptionModel = optionModel;
 			const newOptionImgs = [...optionModel.imgs];
 			const { files } = event.target;
+
 			if (files) {
 				newOptionImgs[idx] = URL.createObjectURL(files[0]);
 				newOptionModel.imgs = newOptionImgs;
+				console.log(files[0]);
+				const formData = new FormData();
+				formData.append("imageFile", files[0]);
+
+				axios({
+					method: "post",
+					url: "http://j5a501.p.ssafy.io:8080/images/upload",
+					data: formData,
+					headers: {
+						"Content-Type": "multipart/form-data",
+					},
+				}).then(e => console.log(e));
 			}
 			setOptionModel(optionModel => newOptionModel);
 		};
@@ -76,7 +90,15 @@ export function OptionalSurveyWithImg({
 				<Radios>
 					<Radio disabled>
 						<ImageContainer className="addNew">
-							<input accept="image/*" type="file" onChange={fileHandler(i)} />
+							<form encType="multipart/form-data">
+								<input
+									id="imageFile"
+									accept="image/*"
+									type="file"
+									onChange={fileHandler(i)}
+								/>
+							</form>
+
 							<Image className="preview" src={optionModel.imgs[i]} />
 						</ImageContainer>
 					</Radio>

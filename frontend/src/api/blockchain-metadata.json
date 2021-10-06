@@ -1,0 +1,192 @@
+{
+	"sender": {
+		"address": "0xB94e68f021ebB9c68f48cE240448034979318150",
+		"private_key": "0x9292c97646451b2a9540062e8ceb465f61cb29f17d0e55c116c95051049f54bd"
+	},
+	"infura_api_key": "6d88878e015047cbad527b89ae00e284",
+	"smart_contract": {
+		"ca": "0x73Db519B47cFB31f4b29ea4208Dfa24f4d48AdE8",
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_respondent",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_key",
+						"type": "string"
+					},
+					{
+						"internalType": "string[]",
+						"name": "_response",
+						"type": "string[]"
+					}
+				],
+				"name": "addResponse",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_title",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_creator",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_key",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_startDate",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_endDate",
+						"type": "string"
+					},
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "qType",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "title",
+								"type": "string"
+							},
+							{
+								"internalType": "string[]",
+								"name": "options",
+								"type": "string[]"
+							},
+							{
+								"internalType": "string[]",
+								"name": "imgs",
+								"type": "string[]"
+							}
+						],
+						"internalType": "struct SurLock.Question[]",
+						"name": "_questions",
+						"type": "tuple[]"
+					}
+				],
+				"name": "addSurvey",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_key",
+						"type": "string"
+					}
+				],
+				"name": "getResponses",
+				"outputs": [
+					{
+						"internalType": "string[][]",
+						"name": "",
+						"type": "string[][]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_key",
+						"type": "string"
+					}
+				],
+				"name": "getSurvey",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "title",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "creator",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "startDate",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "endDate",
+								"type": "string"
+							},
+							{
+								"components": [
+									{
+										"internalType": "string",
+										"name": "qType",
+										"type": "string"
+									},
+									{
+										"internalType": "string",
+										"name": "title",
+										"type": "string"
+									},
+									{
+										"internalType": "string[]",
+										"name": "options",
+										"type": "string[]"
+									},
+									{
+										"internalType": "string[]",
+										"name": "imgs",
+										"type": "string[]"
+									}
+								],
+								"internalType": "struct SurLock.Question[]",
+								"name": "questions",
+								"type": "tuple[]"
+							},
+							{
+								"internalType": "string[][]",
+								"name": "responses",
+								"type": "string[][]"
+							},
+							{
+								"internalType": "string[]",
+								"name": "respondents",
+								"type": "string[]"
+							}
+						],
+						"internalType": "struct SurLock.Survey",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		]
+	}
+}
