@@ -18,14 +18,14 @@ const lightThemeColors = {
 	...colors,
 	primary: "#ffffff",
 	secondary: "#000000",
-	tertiary: "#808080",
+	tertiary: "#ffffff",
 };
 
 const darkThemeColors = {
 	...colors,
 	primary: "#000000",
 	secondary: "#ffffff",
-	tertiary: "#808080",
+	tertiary: "#242527",
 };
 
 const defalutTheme = {
