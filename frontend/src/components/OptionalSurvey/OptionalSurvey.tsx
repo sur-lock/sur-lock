@@ -136,7 +136,7 @@ const CardContainer = styled.div`
 `;
 
 const SurveyForm = styled(Card)`
-	position: absolut;
+	position: relative;
 	width: 65%;
 	padding: 20px;
 	margin: 20px;

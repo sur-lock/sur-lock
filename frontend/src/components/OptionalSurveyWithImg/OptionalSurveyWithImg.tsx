@@ -180,6 +180,7 @@ const FormWrapper = styled.div`
 `;
 
 const SurveyForm = styled(Card)`
+	position: relative;
 	width: 65%;
 	padding: 20px;
 	margin: 20px;
