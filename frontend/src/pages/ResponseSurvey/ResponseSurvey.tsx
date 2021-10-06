@@ -49,6 +49,7 @@ export function ResponseSurvey() {
 				try {
 					const originData = await contract.getSurvey(surveyKey);
 					setData(originData);
+					console.log(originData);
 				} catch (err) {
 					console.log("Error: ", err);
 				}
