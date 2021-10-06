@@ -40,7 +40,7 @@ export function ThemeToggle({ switchTheme }: ThemeToggleProps) {
 }
 
 const Wrapper = styled.div`
-	margin-top: -6px;
+	// margin-top: -6px;
 `;
 
 const Input = styled.input`

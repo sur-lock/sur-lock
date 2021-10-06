@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useAppSelector, useAppDispatch, setUser } from "store";
+import { kakaoLoginSmall } from "static/image";
 import { ThemeToggle } from "../ThemeToggle";
 
 interface HeaderProps {
@@ -72,7 +73,7 @@ export function Header({ switchTheme }: HeaderProps) {
 		<Wrapper>
 			<div className="header-inner">
 				<Link to="/">
-					<div className="logo">설록.</div>
+					<div className="logo">설록</div>
 				</Link>
 				<nav>
 					<ul>
@@ -80,21 +81,16 @@ export function Header({ switchTheme }: HeaderProps) {
 							<Link to="/create">설문생성</Link>
 						</li>
 						<li>
-							<Link to="/response">응답하기</Link>
-						</li>
-						<li>
 							<ThemeToggle switchTheme={switchTheme} />
 						</li>
+						{id ? (
+							<li className="cursorPointer" onClick={handleLogout} onKeyDown={handleLogout}>로그아웃</li>
+						) : (	
+							<li className="cursorPointer">
+								<img src={kakaoLoginSmall} alt="kakao_login" onClick={handleLogin} onKeyDown={handleLogin} />
+							</li>
+						)}
 					</ul>
-					{id ? (
-						<button onClick={handleLogout} type="submit">
-							로그아웃
-						</button>
-					) : (
-						<button onClick={handleLogin} type="submit">
-							로그인
-						</button>
-					)}
 				</nav>
 			</div>
 		</Wrapper>
@@ -118,23 +114,23 @@ const Wrapper = styled.header`
 			ul {
 				display: flex;
 				font-size: ${({ theme: { fonts } }) => fonts.size.sm};
+				
 				li {
 					list-style: none;
 					margin: 0 ${({ theme: { margins } }) => margins.xl};
-
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					
 					a {
 						text-transform: capitalize;
 						text-decoration: none;
 						color: ${({ theme: { colors } }) => colors.secondary};
 					}
 				}
-			}
-			button {
-				color: ${({ theme: { colors } }) => colors.secondary};
-				border: 1px solid ${({ theme: { colors } }) => colors.secondary};
-				padding: ${({ theme: { paddings } }) => paddings.base};
-				border-radius: 10px;
-				margin-top: -10px;
+				li.cursorPointer {
+					cursor: pointer;
+				}
 			}
 		}
 	}
