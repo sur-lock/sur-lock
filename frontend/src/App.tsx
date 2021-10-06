@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { GlobalStyle } from "style/GlobalStyle";
 import { ThemeProvider } from "styled-components";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { MainPage, CreateSurvey, ResponseSurvey } from "pages";
+import { MainPage, CreateSurvey, ResponseSurvey, SurveyResult } from "pages";
 import { darkTheme, lightTheme } from "style/theme";
 import { Header } from "components";
 
@@ -31,6 +31,7 @@ export default function App() {
 					<Route exact path="/" component={MainPage} />
 					<Route exact path="/create" component={CreateSurvey} />
 					<Route exact path="/response/:surveyKey" component={ResponseSurvey} />
+					<Route exact path="/result/:surveyKey" component={SurveyResult} />
 				</Switch>
 			</Router>
 		</ThemeProvider>
