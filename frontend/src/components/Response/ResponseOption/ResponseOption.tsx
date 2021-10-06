@@ -72,45 +72,39 @@ export function ResponseOption({
 			<br />
 
 			<FormContainer layout="vertical" autoComplete="off" size="large">
-				<FormWrapper style={{ overflow: "hidden" }}>
-					{renderOptions()}
-				</FormWrapper>
+				<FormWrapper>{renderOptions()}</FormWrapper>
 			</FormContainer>
 		</SurveyForm>
 	);
 }
 
-const FormContainer = styled(Form)`
-	display: block;
-	float: left;
+const SurveyForm = styled(Card)`
+	width: 80%;
+	padding: 20px;
+	margin: 20px;
+	background-color: ${({ theme: { colors } }) => colors.tertiary};
+	color: ${({ theme: { colors } }) => colors.secondary};
+	border-color: ${({ theme: { colors } }) => colors.tertiary};
 `;
+
 const Label = styled.h1`
 	font-size: 3rem;
 	float: left;
 	margin-bottom: 10px;
-	coler: #fff;
-	display: block;
-`;
-const Buttons = styled(Button)`
-	position: relative;
-	float: right;
-	top: 90%;
-	margin: 5px;
+	color: ${({ theme: { colors } }) => colors.secondary};
 `;
 
-const Radios = styled.div`
+const FormContainer = styled(Form)`
+	display: block;
 	float: left;
+
+	span {
+		color: ${({ theme: { colors } }) => colors.secondary};
+	}
 `;
 
 const FormWrapper = styled.div`
 	font-size: 2rem;
 	display: block;
 	float: left;
-`;
-
-const SurveyForm = styled(Card)`
-	position: absolut;
-	width: 65%;
-	padding: 20px;
-	margin: 20px;
 `;

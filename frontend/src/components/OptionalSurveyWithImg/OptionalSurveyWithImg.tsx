@@ -145,11 +145,17 @@ export function OptionalSurveyWithImg({
 	);
 }
 
-const Buttons = styled(Button)`
-	position: relative;
-	float: right;
-	top: 90%;
-	margin: 5px;
+const SurveyForm = styled(Card)`
+	width: 80%;
+	padding: 20px;
+	margin: 20px;
+	background-color: ${({ theme: { colors } }) => colors.tertiary};
+	color: ${({ theme: { colors } }) => colors.secondary};
+	border-color: ${({ theme: { colors } }) => colors.tertiary};
+`;
+
+const FormWrapper = styled.div`
+	font-size: 2rem;
 `;
 
 const ImageContainer = styled.div`
@@ -170,18 +176,12 @@ const Label = styled.h1`
 	font-size: 3rem;
 	float: left;
 	margin-bottom: 10px;
-	coler: #fff;
-	span {
-		display: block;
-	}
-`;
-const FormWrapper = styled.div`
-	font-size: 2rem;
+	color: ${({ theme: { colors } }) => colors.secondary};
 `;
 
-const SurveyForm = styled(Card)`
+const Buttons = styled(Button)`
 	position: relative;
-	width: 65%;
-	padding: 20px;
-	margin: 20px;
+	float: right;
+	top: 90%;
+	margin: 5px;
 `;

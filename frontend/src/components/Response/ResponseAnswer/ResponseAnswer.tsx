@@ -31,7 +31,7 @@ export function ResponseAnswer({ QuestionIdx, title, sendData }: questionData) {
 	return (
 		<SurveyForm>
 			<Form layout="vertical" autoComplete="off" size="large">
-				<FormWrapper style={{ overflow: "hidden" }}>
+				<FormWrapper>
 					<Form.Item name="SurveyTitle">
 						<Label>{title}</Label>
 						<Input
@@ -45,21 +45,22 @@ export function ResponseAnswer({ QuestionIdx, title, sendData }: questionData) {
 	);
 }
 
-const Label = styled.h1`
-	font-size: 3rem;
-	float: left;
-	margin-bottom: 10px;
-	coler: #fff;
-	span {
-		display: block;
-	}
+const SurveyForm = styled(Card)`
+	width: 80%;
+	padding: 20px;
+	margin: 20px;
+	background-color: ${({ theme: { colors } }) => colors.tertiary};
+	color: ${({ theme: { colors } }) => colors.secondary};
+	border-color: ${({ theme: { colors } }) => colors.tertiary};
 `;
+
 const FormWrapper = styled.div`
 	font-size: 2rem;
 `;
 
-const SurveyForm = styled(Card)`
-	width: 65%;
-	padding: 20px;
-	margin: 20px;
+const Label = styled.h1`
+	font-size: 3rem;
+	float: left;
+	margin-bottom: 10px;
+	color: ${({ theme: { colors } }) => colors.secondary};
 `;

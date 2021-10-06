@@ -84,10 +84,21 @@ export function Header({ switchTheme }: HeaderProps) {
 							<ThemeToggle switchTheme={switchTheme} />
 						</li>
 						{id ? (
-							<li className="cursorPointer" onClick={handleLogout} onKeyDown={handleLogout}>로그아웃</li>
-						) : (	
+							<li
+								className="cursorPointer"
+								onClick={handleLogout}
+								onKeyDown={handleLogout}
+							>
+								로그아웃
+							</li>
+						) : (
 							<li className="cursorPointer">
-								<img src={kakaoLoginSmall} alt="kakao_login" onClick={handleLogin} onKeyDown={handleLogin} />
+								<img
+									src={kakaoLoginSmall}
+									alt="kakao_login"
+									onClick={handleLogin}
+									onKeyDown={handleLogin}
+								/>
 							</li>
 						)}
 					</ul>
@@ -114,16 +125,15 @@ const Wrapper = styled.header`
 			ul {
 				display: flex;
 				font-size: ${({ theme: { fonts } }) => fonts.size.sm};
-				
+
 				li {
 					list-style: none;
 					margin: 0 ${({ theme: { margins } }) => margins.xl};
 					display: flex;
 					align-items: center;
 					justify-content: center;
-					
+					color: ${({ theme: { colors } }) => colors.secondary};
 					a {
-						text-transform: capitalize;
 						text-decoration: none;
 						color: ${({ theme: { colors } }) => colors.secondary};
 					}

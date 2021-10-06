@@ -14,9 +14,10 @@ import "react-tiny-fab/dist/styles.css";
 import { useParams } from "react-router-dom";
 import surLock from "../../api/blockchain-metadata.json";
 
-type keyParams = {
+interface keyParams {
 	surveyKey: string;
-};
+}
+
 export function ResponseSurvey() {
 	const [data, setData] = useState({
 		title: "",
@@ -48,6 +49,7 @@ export function ResponseSurvey() {
 
 				try {
 					const originData = await contract.getSurvey(surveyKey);
+					console.log(originData);
 					setData(originData);
 				} catch (err) {
 					console.log("Error: ", err);
@@ -153,9 +155,10 @@ export function ResponseSurvey() {
 
 	return (
 		<CardContainer>
-			<Title>{data.title}</Title>
-
-			{renderSurveys()}
+			<Questions>
+				<Title>{data.title}</Title>
+				{renderSurveys()}
+			</Questions>
 			<Fab icon="+">
 				<Action text="제출" onClick={onSubmitSurvey}>
 					<UploadOutlined />
@@ -169,22 +172,24 @@ export function ResponseSurvey() {
 }
 
 const CardContainer = styled.div`
-	position: relative;
+	position: absolute;
+	top: 0;
+	left: 0;
 	width: 100%;
-	height: 100%;
-
+	padding-top: 200px;
 	text-align: center;
-	background: ${({ theme: { colors } }) => colors.phantomBlue};
-	font-size: ${({ theme: { fonts } }) => fonts.size.title};
 	${({ theme: { display } }) => display.flexCol()}
 `;
 
+const Questions = styled.div`
+	width: 45%;
+	${({ theme: { display } }) => display.flexCol()}
+	background-color: ${({ theme: { colors } }) => colors.tertiary};
+	margin-bottom: 50px;
+`;
+
 const Title = styled.h1`
-	font-size: 10rem;
 	text-align: center;
-	color: #fff;
+	color: ${({ theme: { colors } }) => colors.secondary};
 	line-height: 130px;
-	span {
-		display: block;
-	}
 `;

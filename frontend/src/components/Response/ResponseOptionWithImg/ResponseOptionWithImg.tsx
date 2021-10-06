@@ -1,16 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import "antd/dist/antd.css";
-import {
-	Card,
-	Form,
-	Input,
-	Image,
-	Radio,
-	Space,
-	Button,
-	RadioChangeEvent,
-} from "antd";
+import { Card, Form, Image, Radio, RadioChangeEvent } from "antd";
 
 interface questionData {
 	QuestionIdx: number;
@@ -51,7 +42,7 @@ export function ResponseOptionWithImg({
 	return (
 		<SurveyForm>
 			<Form layout="vertical" autoComplete="off" size="large">
-				<FormWrapper style={{ overflow: "hidden" }}>
+				<FormWrapper>
 					<Form.Item name="SurveyTitle">
 						<Label>{title}</Label>
 						<br />
@@ -65,28 +56,22 @@ export function ResponseOptionWithImg({
 	);
 }
 
-const ImageContainer = styled(Image)`
-	width: 35%;
-	height: 35%;
-	margin-top: 10px;
-	margin-bottom: 10px;
+const SurveyForm = styled(Card)`
+	width: 80%;
+	padding: 20px;
+	margin: 20px;
+	background-color: ${({ theme: { colors } }) => colors.tertiary};
+	color: ${({ theme: { colors } }) => colors.secondary};
+	border-color: ${({ theme: { colors } }) => colors.tertiary};
+`;
+
+const FormWrapper = styled.div`
+	font-size: 2rem;
 `;
 
 const Label = styled.h1`
 	font-size: 3rem;
 	float: left;
 	margin-bottom: 10px;
-	coler: #fff;
-	span {
-		display: block;
-	}
-`;
-const FormWrapper = styled.div`
-	font-size: 2rem;
-`;
-
-const SurveyForm = styled(Card)`
-	width: 65%;
-	padding: 20px;
-	margin: 20px;
+	color: ${({ theme: { colors } }) => colors.secondary};
 `;
