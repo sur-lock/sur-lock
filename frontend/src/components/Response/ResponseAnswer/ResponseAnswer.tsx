@@ -34,7 +34,7 @@ export function ResponseAnswer({ QuestionIdx, title, sendData }: questionData) {
 				<FormWrapper>
 					<Form.Item name="SurveyTitle">
 						<Label>{title}</Label>
-						<Input
+						<StyledInput
 							onChange={onAnswerChangeHandler}
 							placeholder="답변을 입력해주세요"
 						/>
@@ -52,6 +52,14 @@ const SurveyForm = styled(Card)`
 	background-color: ${({ theme: { colors } }) => colors.tertiary};
 	color: ${({ theme: { colors } }) => colors.secondary};
 	border-color: ${({ theme: { colors } }) => colors.tertiary};
+`;
+
+const StyledInput = styled(Input)`
+	background-color: transparent;
+	color: ${({ theme: { colors } }) => colors.secondary};
+	border: none;
+	outline: none;
+	border-bottom: 3px solid ${({ theme: { colors } }) => colors.secondary};
 `;
 
 const FormWrapper = styled.div`

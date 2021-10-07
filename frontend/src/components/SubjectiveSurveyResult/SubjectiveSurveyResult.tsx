@@ -24,6 +24,8 @@ export function SubjectiveSurveyResult({
 const Wrapper = styled.div``;
 
 const Result = styled.div`
+	margin-top: 5px;
 	font-size: 2rem;
 	border: 1px solid ${({ theme: { colors } }) => colors.secondary};
+	padding: 5px;
 `;
