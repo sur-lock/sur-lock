@@ -25,5 +25,5 @@ const Wrapper = styled.div``;
 
 const Result = styled.div`
 	font-size: 2rem;
-	border: 5px solid black;
+	border: 1px solid ${({ theme: { colors } }) => colors.secondary};
 `;

@@ -85,5 +85,5 @@ export function SurveyResult() {
 
 const Wrapper = styled.div`
 	width: 60%;
-	${({ theme: { display } }) => display.flexRow()}
+	${({ theme: { display } }) => display.flexCol()}
 `;
