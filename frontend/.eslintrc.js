@@ -31,5 +31,6 @@ module.exports = {
 		"no-param-reassign": "off",
 		"no-unneeded-ternary": "off",
 		"no-return-await": "off",
+		"array-callback-return": "off",
 	},
 };
