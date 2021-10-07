@@ -164,7 +164,7 @@ export function ResponseSurvey() {
 			setIsLoading(false);
 
 			alert("설문에 참여해 주셔서 감사합니다.");
-			history.push("/");
+			history.push(`/result/${surveyKey}`);
 		}
 	}
 
