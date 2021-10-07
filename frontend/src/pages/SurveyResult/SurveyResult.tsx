@@ -65,7 +65,7 @@ export function SurveyResult() {
 						qType: question.qType,
 						title: question.title,
 						options: question.options,
-						responses: question.responses.map((response: any) =>
+						responses: responses.map((response: any) =>
 							Number(response[idx - 1]),
 						),
 					};
