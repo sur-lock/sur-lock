@@ -2,13 +2,14 @@ import React from "react";
 import styled from "styled-components";
 
 interface SubjectiveSurveyResultProps {
-	title: string;
-	responses: string[];
+	data: {
+		title: string;
+		responses: string[];
+	};
 }
 
 export function SubjectiveSurveyResult({
-	title,
-	responses,
+	data: { title, responses },
 }: SubjectiveSurveyResultProps) {
 	return (
 		<Wrapper>

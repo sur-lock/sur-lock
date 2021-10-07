@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { ethers } from "ethers";
 import { useParams } from "react-router-dom";
-import { PieChartForSelect } from "components";
+import { PieChartForSelect, SubjectiveSurveyResult } from "components";
 import surLock from "../../api/blockchain-metadata.json";
 
 interface keyParams {
@@ -71,18 +71,25 @@ export function SurveyResult() {
 					};
 					return <PieChartForSelect data={data} />;
 				}
+				if (question.qType === "selectImg") {
+					const data = {
+						qType: question.qType,
+						title: question.title,
+						options: question.imgs,
+						responses: responses.map((response: any) =>
+							Number(response[idx - 1]),
+						),
+					};
+					return <PieChartForSelect data={data} />;
+				}
+				if (question.qType === "write" || question.qType === "writeImg") {
+					const data = {
+						title: question.title,
+						responses: responses.map((response: any) => response[idx - 1]),
+					};
+					return <SubjectiveSurveyResult data={data} />;
+				}
 				return <></>;
-
-				// if (question.qType === "select") {
-				// 	const questionData =
-				// 	{
-				// 		qType: question.qType
-				// 		title: question.title,
-				// 		options: question.options,
-				// 		responses: question.responses.map(response => Number(response[idx - 1]))
-				// 	};
-				// 	<PieChartForSelect data={questionData} />
-				// }
 			})}
 		</>
 	);
