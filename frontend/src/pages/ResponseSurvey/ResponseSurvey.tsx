@@ -21,7 +21,30 @@ interface keyParams {
 	surveyKey: string;
 }
 
+interface KakaoLogin {
+	access_token: string;
+	expires_in: number;
+	refresh_token: string;
+	refresh_token_expires_in: number;
+	token_type: string;
+}
+
+interface UserInfo {
+	id: number;
+	connected_at: string;
+	kakao_account: {
+		profile: {
+			nickname: string;
+		};
+		profile_nickname_needs_agreement: boolean;
+	};
+	properties: { nickname: string };
+}
+
+const { Kakao } = window;
+
 export function ResponseSurvey() {
+	const dispatch = useAppDispatch();
 	const [isLoading, setIsLoading] = useState(false);
 	const [data, setData] = useState({
 		title: "",
@@ -63,6 +86,41 @@ export function ResponseSurvey() {
 		}
 		getData();
 	}, []);
+
+	useEffect(() => {
+		if (!id) {
+			alert("로그인 후 이용가능합니다.");
+			doKakaoLogin();
+		}
+	}, [id]);
+
+	const doKakaoLogin = async () => {
+		await Kakao.Auth.login({
+			success: ({ access_token }: KakaoLogin) => {
+				Kakao.Auth.setAccessToken(access_token);
+				Kakao.API.request({
+					url: "/v2/user/me",
+					success: ({ id, properties: { nickname } }: UserInfo) => {
+						dispatch(setUser({ id, name: nickname }));
+					},
+				});
+			},
+			fail: (err: any) => {
+				alert(err);
+				history.goBack();
+			},
+		});
+	};
+
+	useEffect(() => {
+		if (data) {
+			const respondentsSet = new Set<string>(data.respondents);
+			if (respondentsSet.has(String(id))) {
+				alert("이미 설문에 참여하셨습니다. 결과 페이지로 이동합니다.");
+				history.push(`/result/${surveyKey}`);
+			}
+		}
+	}, [data]);
 
 	async function addResponse() {
 		if (infuraProvider) {
@@ -106,7 +164,7 @@ export function ResponseSurvey() {
 			setIsLoading(false);
 
 			alert("설문에 참여해 주셔서 감사합니다.");
-			history.push("/");
+			history.push(`/result/${surveyKey}`);
 		}
 	}
 

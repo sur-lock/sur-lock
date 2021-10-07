@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-no-bind */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { ethers } from "ethers";
 import { useHistory } from "react-router-dom";
-import { useAppSelector, useAppDispatch, setUser } from "store";
+import { useAppDispatch, useAppSelector, setUser } from "store";
 import {
 	CheckOutlined,
 	FileAddOutlined,
@@ -12,7 +12,6 @@ import {
 	UploadOutlined,
 } from "@ant-design/icons";
 import "antd/dist/antd.css";
-import { Card } from "antd";
 import {
 	AnswerSurvey,
 	OptionalSurvey,
@@ -26,8 +25,31 @@ import { Fab, Action } from "react-tiny-fab";
 import "react-tiny-fab/dist/styles.css";
 import surLock from "../../api/blockchain-metadata.json";
 
+interface KakaoLogin {
+	access_token: string;
+	expires_in: number;
+	refresh_token: string;
+	refresh_token_expires_in: number;
+	token_type: string;
+}
+
+interface UserInfo {
+	id: number;
+	connected_at: string;
+	kakao_account: {
+		profile: {
+			nickname: string;
+		};
+		profile_nickname_needs_agreement: boolean;
+	};
+	properties: { nickname: string };
+}
+
+const { Kakao } = window;
+
 export function CreateSurvey() {
-	const { id, name } = useAppSelector(state => state.auth.user);
+	const dispatch = useAppDispatch();
+	const { id } = useAppSelector(state => state.auth.user);
 	const initialState = {
 		address: "",
 		startDate: "",
@@ -46,6 +68,31 @@ export function CreateSurvey() {
 		"ropsten",
 		surLock.infura_api_key,
 	);
+
+	useEffect(() => {
+		if (!id) {
+			alert("로그인 후 이용가능합니다.");
+			doKakaoLogin();
+		}
+	}, [id]);
+
+	const doKakaoLogin = async () => {
+		await Kakao.Auth.login({
+			success: ({ access_token }: KakaoLogin) => {
+				Kakao.Auth.setAccessToken(access_token);
+				Kakao.API.request({
+					url: "/v2/user/me",
+					success: ({ id, properties: { nickname } }: UserInfo) => {
+						dispatch(setUser({ id, name: nickname }));
+					},
+				});
+			},
+			fail: (err: any) => {
+				alert(err);
+				history.goBack();
+			},
+		});
+	};
 
 	async function addSurvey() {
 		if (infuraProvider) {
