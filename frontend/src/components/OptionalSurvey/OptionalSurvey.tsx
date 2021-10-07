@@ -55,6 +55,20 @@ export function OptionalSurvey({ QuestionIdx, sendData }: sendInterface) {
 	};
 
 	const onComplete = () => {
+		if (optionCount.title === "") {
+			alert("문항의 제목을 입력해주세요.");
+			return;
+		}
+		if (optionNumber < 2) {
+			alert("선택지는 최소 두개 이상이여야 합니다.");
+			return;
+		}
+		for (let i = 0; i < optionNumber; i += 1) {
+			if (optionCount.options[i] === "") {
+				alert("비어있는 선택지가 존재합니다.");
+				return;
+			}
+		}
 		sendData(QuestionIdx, optionCount);
 	};
 

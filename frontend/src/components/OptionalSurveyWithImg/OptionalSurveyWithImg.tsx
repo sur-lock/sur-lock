@@ -38,7 +38,6 @@ export function OptionalSurveyWithImg({
 		setOptionModel(optionModel => newOptionModel);
 		setOptionCount(optionCount + 1);
 		setImagePreview(imagePreview => newImagePreview);
-		console.log(optionModel);
 	};
 
 	const onDelete = () => {
@@ -61,6 +60,20 @@ export function OptionalSurveyWithImg({
 		setOptionModel(optionModel => newOptionModel);
 	};
 	const onComplete = () => {
+		if (optionModel.title === "") {
+			alert("문항의 제목을 입력해주세요.");
+			return;
+		}
+		if (optionCount < 2) {
+			alert("선택지는 최소 두개 이상이여야 합니다.");
+			return;
+		}
+		for (let i = 0; i < optionCount; i += 1) {
+			if (optionModel.imgs[i] === "") {
+				alert("비어있는 선택지가 존재합니다.");
+				return;
+			}
+		}
 		sendData(QuestionIdx, optionModel);
 	};
 	const fileHandler =
@@ -74,8 +87,6 @@ export function OptionalSurveyWithImg({
 				newOptionImgs[idx] = URL.createObjectURL(files[0]);
 				newOptionModel.imgs = newOptionImgs;
 				newImagePreview[idx] = URL.createObjectURL(files[0]);
-				console.log("#####################");
-				console.log(URL.createObjectURL(files[0]));
 				const formData = new FormData();
 				formData.append("imageFile", files[0]);
 
@@ -87,15 +98,11 @@ export function OptionalSurveyWithImg({
 						"Content-Type": "multipart/form-data",
 					},
 				}).then(e => {
-					// console.log(e);
 					newOptionImgs[idx] = e.data.response;
-					// console.log(newOptionImgs);
 				});
 			}
 			setOptionModel(optionModel => newOptionModel);
 			setImagePreview(imagePreview => newImagePreview);
-			// console.log(optionModel);
-			// console.log(imagePreview);
 		};
 
 	const renderOptions = () => {

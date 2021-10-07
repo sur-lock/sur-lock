@@ -19,6 +19,10 @@ export function AnswerSurvey({ QuestionIdx, sendData }: sendInterface) {
 	};
 
 	const onComplete = () => {
+		if (Answer === "") {
+			alert("문항을 입력해주세요");
+			return;
+		}
 		sendData(QuestionIdx, Answer);
 	};
 
