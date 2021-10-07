@@ -44,7 +44,6 @@ export function SurveyResult() {
 				setQuestions(questions);
 				setRespondents(respondents);
 				setResponses(responses);
-				console.log(responses);
 			} catch (err) {
 				console.log("Error: ", err);
 			}
