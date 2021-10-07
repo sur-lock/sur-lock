@@ -39,12 +39,16 @@ export function SurveyResult() {
 				);
 				const { title, endDate, questions, respondents, responses } =
 					await contract.getSurvey(surveyKey);
+				console.log(title);
+				console.log(endDate);
+				console.log(questions);
+				console.log(respondents);
+				console.log(responses);
 				setTitle(title);
 				setEndDate(endDate);
 				setQuestions(questions);
 				setRespondents(respondents);
 				setResponses(responses);
-				console.log(responses);
 			} catch (err) {
 				console.log("Error: ", err);
 			}
