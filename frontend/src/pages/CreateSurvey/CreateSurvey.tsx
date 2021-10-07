@@ -19,6 +19,7 @@ import {
 	AnswerSurveyWithImg,
 	OptionalSurveyWithImg,
 	SurveyTitle,
+	FullscreenSpinner,
 } from "components";
 
 import { Fab, Action } from "react-tiny-fab";
@@ -38,6 +39,7 @@ export function CreateSurvey() {
 	const history = useHistory();
 	const [QuestionCount, setQuestionCount] = useState(0);
 	const [Survey, setSurvey] = useState(initialState);
+	const [isLoading, setIsLoading] = useState(false);
 	const surlockCA = surLock.smart_contract.ca;
 	let SurveyURL = "";
 	const infuraProvider = new ethers.providers.InfuraProvider(
@@ -82,6 +84,8 @@ export function CreateSurvey() {
 					// eslint-disable-next-line no-alert
 					alert("로그인 후 이용가능합니다.");
 				} else {
+					setIsLoading(true);
+
 					const time = new Date().getTime();
 					const surveyKey = String(id) + time;
 					const transaction = await contract.addSurvey(
@@ -95,6 +99,8 @@ export function CreateSurvey() {
 
 					SurveyURL = `http://j5a501.p.ssafy.io/response/${surveyKey}`;
 					await transaction.wait();
+
+					setIsLoading(false);
 					history.push({
 						pathname: "/complete",
 						state: { SurveyURL },
@@ -209,26 +215,29 @@ export function CreateSurvey() {
 	};
 
 	return (
-		<CardContainer>
-			<Questions>{renderSurveys()}</Questions>
-			<Fab icon="+">
-				<Action text="제출" onClick={onSubmit}>
-					<UploadOutlined />
-				</Action>
-				<Action text="객관식" onClick={onAddOptional}>
-					<CheckOutlined />
-				</Action>
-				<Action text="객관식(이미지)" onClick={onAddOptionalWithImage}>
-					<FileAddOutlined />
-				</Action>
-				<Action text="주관식" onClick={onAddAnswer}>
-					<ProfileOutlined />
-				</Action>
-				<Action text="주관식(이미지)" onClick={onAddAnswerWithImage}>
-					<PictureOutlined />
-				</Action>
-			</Fab>
-		</CardContainer>
+		<>
+			<CardContainer>
+				<Questions>{renderSurveys()}</Questions>
+				<Fab icon="+">
+					<Action text="제출" onClick={onSubmit}>
+						<UploadOutlined />
+					</Action>
+					<Action text="객관식" onClick={onAddOptional}>
+						<CheckOutlined />
+					</Action>
+					<Action text="객관식(이미지)" onClick={onAddOptionalWithImage}>
+						<FileAddOutlined />
+					</Action>
+					<Action text="주관식" onClick={onAddAnswer}>
+						<ProfileOutlined />
+					</Action>
+					<Action text="주관식(이미지)" onClick={onAddAnswerWithImage}>
+						<PictureOutlined />
+					</Action>
+				</Fab>
+			</CardContainer>
+			{isLoading && <FullscreenSpinner />}
+		</>
 	);
 }
 

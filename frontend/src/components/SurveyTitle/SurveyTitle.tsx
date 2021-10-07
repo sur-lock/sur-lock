@@ -36,15 +36,6 @@ export function SurveyTitle({ QuestionIdx, sendData }: sendInterface) {
 						/>
 					</Form.Item>
 				</FormWrapper>
-				<FormWrapper style={{ overflow: "hidden" }}>
-					<Form.Item name="SurveyDiscription">
-						<Label>설문 설명</Label>
-						<Input
-							onChange={onDiscriptionChangeHandler}
-							placeholder="설문에 대한 설명을 입력해주세요"
-						/>
-					</Form.Item>
-				</FormWrapper>
 			</Form>
 		</SurveyForm>
 	);

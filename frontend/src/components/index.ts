@@ -9,3 +9,4 @@ export * from "./OptionalSurveyWithImg";
 export * from "./SurveyTitle";
 export * from "./ThemeToggle";
 export * from "./Response";
+export * from "./FullscreenSpinner";
