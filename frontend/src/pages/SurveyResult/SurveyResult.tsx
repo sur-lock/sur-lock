@@ -56,6 +56,7 @@ export function SurveyResult() {
 		})();
 	}, []);
 
+	if (!questions) return <></>;
 	return (
 		<>
 			{questions.map((question: any, idx) => {
