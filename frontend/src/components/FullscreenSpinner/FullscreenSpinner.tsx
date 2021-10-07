@@ -25,24 +25,23 @@ const Wrapper = styled.div`
 	width: 100vw;
 	height: 100vh;
 	display: flex;
-  background-color;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: rgb(0 0 0 / 60%);
-  z-index: 9999;
-  flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: rgb(0 0 0 / 60%);
+	z-index: 9999;
+	flex-direction: column;
 
-  .loadingContent {
-    color: white;
-    font-size: 30px;
-    font-weight: 500;
-    margin-top: 40px;
-  }
+	.loadingContent {
+		color: white;
+		font-size: 30px;
+		font-weight: 500;
+		margin-top: 40px;
+	}
 
-  .bold {
-    font-weight: 600;
-  }
+	.bold {
+		font-weight: 600;
+	}
 `;
