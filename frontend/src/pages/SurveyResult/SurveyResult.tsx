@@ -84,7 +84,7 @@ export function SurveyResult() {
 }
 
 const Wrapper = styled.div`
-	width: 70%;
+	width: 100%;
 	${({ theme: { display } }) => display.flexCol()}
 	margin-bottom: 25px;
 `;

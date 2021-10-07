@@ -115,7 +115,7 @@ export function PieChartForSelect({ data }: PieChartForSelectProps) {
 	};
 
 	return (
-		<>
+		<div>
 			<Title>{data.title}</Title>
 			<Paragraph>응답 {data.responses.length}개</Paragraph>
 			<ChartWrapper>
@@ -152,7 +152,7 @@ export function PieChartForSelect({ data }: PieChartForSelectProps) {
 					</Pie>
 				</PieChart>
 			</ChartWrapper>
-		</>
+		</div>
 	);
 }
 
