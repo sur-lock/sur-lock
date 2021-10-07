@@ -18,16 +18,6 @@ export function SubjectiveSurveyResult({
 				{responses.map(response => (
 					<Result>{response}</Result>
 				))}
-				<Result>ssssssssssssssss</Result>
-				<Result>ssssssssssssssss</Result>
-				<Result>ssssssssssssssss</Result>
-				<Result>ssssssssssssssss</Result>
-				<Result>ssssssssssssssss</Result>
-				<Result>ssssssssssssssss</Result>
-				<Result>ssssssssssssssss</Result>
-				<Result>ssssssssssssssss</Result>
-				<Result>ssssssssssssssss</Result>
-				<Result>ssssssssssssssss</Result>
 			</div>
 		</div>
 	);
