@@ -78,7 +78,7 @@ export function CreateSurvey() {
 			}
 
 			if (id) {
-				if (String(id) === "") {
+				if (String(id) === "0") {
 					// eslint-disable-next-line no-alert
 					alert("로그인 후 이용가능합니다.");
 				} else {

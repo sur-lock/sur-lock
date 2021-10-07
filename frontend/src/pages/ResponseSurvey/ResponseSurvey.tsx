@@ -12,6 +12,8 @@ import { ethers } from "ethers";
 import { Fab, Action } from "react-tiny-fab";
 import "react-tiny-fab/dist/styles.css";
 import { useParams } from "react-router-dom";
+import { useAppSelector, useAppDispatch, setUser } from "store";
+import { useHistory } from "react-router-dom";
 import surLock from "../../api/blockchain-metadata.json";
 
 interface keyParams {
@@ -24,10 +26,12 @@ export function ResponseSurvey() {
 		creator: "",
 		endDate: "",
 		questions: [],
+		respondents: [],
 	});
 	const surlockCA = surLock.smart_contract.ca;
 	const { surveyKey } = useParams<keyParams>();
-	const userKey = localStorage.getItem("user_key");
+	const { id, name } = useAppSelector(state => state.auth.user);
+	const history = useHistory();
 	const infuraProvider = new ethers.providers.InfuraProvider(
 		"ropsten",
 		surLock.infura_api_key,
@@ -49,7 +53,6 @@ export function ResponseSurvey() {
 
 				try {
 					const originData = await contract.getSurvey(surveyKey);
-					console.log(originData);
 					setData(originData);
 				} catch (err) {
 					console.log("Error: ", err);
@@ -57,11 +60,14 @@ export function ResponseSurvey() {
 			}
 		}
 		getData();
-		console.log(data);
 	}, []);
 
 	async function addResponse() {
 		if (infuraProvider) {
+			if (!id) {
+				alert("로그인 후 이용가능합니다.");
+				return;
+			}
 			const wallet = new ethers.Wallet(
 				surLock.sender.private_key,
 				infuraProvider,
@@ -79,13 +85,22 @@ export function ResponseSurvey() {
 				answer.push(String(answerSheet[i].val));
 			}
 
+			const respondentsSet = new Set<string>(data.respondents);
+			if (respondentsSet.has(String(id))) {
+				alert("한 번 참여한 설문에 다시 참여하실 수 없습니다.");
+				return;
+			}
+
 			const transaction = await contract.addResponse(
-				userKey,
+				String(id),
 				surveyKey,
 				answer,
 			);
 
 			await transaction.wait();
+
+			alert("설문에 참여해 주셔서 감사합니다.");
+			history.push("/");
 		}
 	}
 
