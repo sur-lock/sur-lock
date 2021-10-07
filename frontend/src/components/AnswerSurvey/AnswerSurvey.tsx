@@ -32,14 +32,16 @@ export function AnswerSurvey({ QuestionIdx, sendData }: sendInterface) {
 				<FormWrapper>
 					<Form.Item>
 						<Label>주관식 질문</Label>
-						<Input
+						<StyledInput
 							onChange={onTitleChangeHandler}
 							placeholder="문항을 입력해주세요"
 						/>
 					</Form.Item>
 				</FormWrapper>
 			</Form>
-			<Buttons onClick={onComplete}>저장</Buttons>
+			<Buttons onClick={onComplete} size="small">
+				저장
+			</Buttons>
 		</SurveyForm>
 	);
 }
@@ -57,6 +59,14 @@ const FormWrapper = styled.div`
 	font-size: 2rem;
 `;
 
+const StyledInput = styled(Input)`
+	background-color: transparent;
+	color: ${({ theme: { colors } }) => colors.secondary};
+	border: none;
+	outline: none;
+	border-bottom: 3px solid ${({ theme: { colors } }) => colors.secondary};
+`;
+
 const Label = styled.h1`
 	font-size: 3rem;
 	float: left;
@@ -69,4 +79,6 @@ const Buttons = styled(Button)`
 	float: right;
 	top: 90%;
 	margin: 5px;
+	background-color: ${({ theme: { colors } }) => colors.primary};
+	color: ${({ theme: { colors } }) => colors.secondary};
 `;

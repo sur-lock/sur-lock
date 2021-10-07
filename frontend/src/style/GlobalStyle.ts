@@ -19,6 +19,11 @@ export const GlobalStyle = createGlobalStyle`
 				font-weight: ${theme.fonts.weight.normal};
 				font-size: ${theme.fonts.size.base};
 				background-color: ${theme.colors.phantomBlue};
+				input {
+					background-color: transparent;
+					border: none;
+					border-bottom: 1px solid black;
+				}
 			}
 		`;
 	}}

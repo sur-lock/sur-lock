@@ -78,7 +78,7 @@ export function OptionalSurvey({ QuestionIdx, sendData }: sendInterface) {
 			result.push(
 				<Radios>
 					<Radio value={i}>
-						<Input
+						<StyledInput
 							placeholder="
 						문항을 입력해주세요"
 							onChange={onOptionChangeHandler(i)}
@@ -96,7 +96,7 @@ export function OptionalSurvey({ QuestionIdx, sendData }: sendInterface) {
 				<FormWrapper>
 					<Form.Item name="SurveyTitle">
 						<Label>객관식 질문</Label>
-						<Input
+						<StyledInput
 							placeholder="질문을 입력해주세요"
 							onChange={onTitleChangeHandler}
 						/>
@@ -105,9 +105,15 @@ export function OptionalSurvey({ QuestionIdx, sendData }: sendInterface) {
 				<Space>
 					<Space direction="vertical">{renderOptions()}</Space>
 				</Space>
-				<Buttons onClick={onComplete}>저장</Buttons>
-				<Buttons onClick={onDelete}>문항삭제</Buttons>
-				<Buttons onClick={onAdd}>문항추가</Buttons>
+				<Buttons onClick={onComplete} size="small">
+					저장
+				</Buttons>
+				<Buttons onClick={onDelete} size="small">
+					삭제
+				</Buttons>
+				<Buttons onClick={onAdd} size="small">
+					추가
+				</Buttons>
 			</Form>
 		</SurveyForm>
 	);
@@ -130,6 +136,14 @@ const Radios = styled.div`
 	float: left;
 `;
 
+const StyledInput = styled(Input)`
+	background-color: transparent;
+	color: ${({ theme: { colors } }) => colors.secondary};
+	border: none;
+	outline: none;
+	border-bottom: 3px solid ${({ theme: { colors } }) => colors.secondary};
+`;
+
 const Label = styled.h1`
 	font-size: 3rem;
 	float: left;
@@ -142,4 +156,6 @@ const Buttons = styled(Button)`
 	float: right;
 	top: 90%;
 	margin: 5px;
+	background-color: ${({ theme: { colors } }) => colors.primary};
+	color: ${({ theme: { colors } }) => colors.secondary};
 `;

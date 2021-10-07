@@ -30,7 +30,7 @@ export function SurveyTitle({ QuestionIdx, sendData }: sendInterface) {
 				<FormWrapper style={{ overflow: "hidden" }}>
 					<Form.Item name="SurveyTitle">
 						<Label>설문 제목</Label>
-						<Input
+						<StyledInput
 							onChange={onTitleChangeHandler}
 							placeholder="설문 제목을 입력해주세요"
 						/>
@@ -54,6 +54,14 @@ const Label = styled.h1`
 	float: left;
 	margin-bottom: 10px;
 	color: ${({ theme: { colors } }) => colors.secondary};
+`;
+
+const StyledInput = styled(Input)`
+	background-color: transparent;
+	color: ${({ theme: { colors } }) => colors.secondary};
+	border: none;
+	outline: none;
+	border-bottom: 3px solid ${({ theme: { colors } }) => colors.secondary};
 `;
 
 const FormWrapper = styled.div`

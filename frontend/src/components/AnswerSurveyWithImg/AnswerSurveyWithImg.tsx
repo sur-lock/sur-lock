@@ -71,13 +71,15 @@ export function AnswerSurveyWithImg({ QuestionIdx, sendData }: sendInterface) {
 							<input accept="image/*" type="file" onChange={fileHandler} />
 							<Image className="preview" src={imagePreview} />
 						</ImageContainer>
-						<Input
+						<StyledInput
 							onChange={onTitleChangeHandler}
 							placeholder="질문을 입력해주세요"
 						/>
 					</Form.Item>
 				</FormWrapper>
-				<Buttons onClick={onComplete}>저장</Buttons>
+				<Buttons onClick={onComplete} size="small">
+					저장
+				</Buttons>
 			</Form>
 		</SurveyForm>
 	);
@@ -94,6 +96,14 @@ const SurveyForm = styled(Card)`
 
 const FormWrapper = styled.div`
 	font-size: 2rem;
+`;
+
+const StyledInput = styled(Input)`
+	background-color: transparent;
+	color: ${({ theme: { colors } }) => colors.secondary};
+	border: none;
+	outline: none;
+	border-bottom: 3px solid ${({ theme: { colors } }) => colors.secondary};
 `;
 
 const Label = styled.h1`
@@ -113,4 +123,6 @@ const Buttons = styled(Button)`
 	float: right;
 	top: 90%;
 	margin: 5px;
+	background-color: ${({ theme: { colors } }) => colors.primary};
+	color: ${({ theme: { colors } }) => colors.secondary};
 `;

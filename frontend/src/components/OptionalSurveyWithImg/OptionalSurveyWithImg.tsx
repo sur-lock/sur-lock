@@ -135,7 +135,7 @@ export function OptionalSurveyWithImg({
 				<FormWrapper style={{ overflow: "hidden" }}>
 					<Form.Item name="SurveyTitle">
 						<Label>객관식 질문(이미지첨부)</Label>
-						<Input
+						<StyledInput
 							placeholder="질문을 입력해주세요"
 							onChange={onTitleChangeHandler}
 						/>
@@ -144,9 +144,17 @@ export function OptionalSurveyWithImg({
 				<Space>
 					<Space direction="vertical">{renderOptions()}</Space>
 				</Space>
-				<Buttons onClick={onComplete}>저장</Buttons>
-				<Buttons onClick={onDelete}>그림삭제</Buttons>
-				<Buttons onClick={onAdd}>그림추가</Buttons>
+				<div>
+					<Buttons onClick={onAdd} size="small">
+						추가
+					</Buttons>
+					<Buttons onClick={onDelete} size="small">
+						삭제
+					</Buttons>
+					<Buttons onClick={onComplete} size="small">
+						저장
+					</Buttons>
+				</div>
 			</Form>
 		</SurveyForm>
 	);
@@ -159,6 +167,14 @@ const SurveyForm = styled(Card)`
 	background-color: ${({ theme: { colors } }) => colors.tertiary};
 	color: ${({ theme: { colors } }) => colors.secondary};
 	border-color: ${({ theme: { colors } }) => colors.tertiary};
+`;
+
+const StyledInput = styled(Input)`
+	background-color: transparent;
+	color: ${({ theme: { colors } }) => colors.secondary};
+	border: none;
+	outline: none;
+	border-bottom: 3px solid ${({ theme: { colors } }) => colors.secondary};
 `;
 
 const FormWrapper = styled.div`
@@ -191,4 +207,6 @@ const Buttons = styled(Button)`
 	float: right;
 	top: 90%;
 	margin: 5px;
+	background-color: ${({ theme: { colors } }) => colors.primary};
+	color: ${({ theme: { colors } }) => colors.secondary};
 `;
