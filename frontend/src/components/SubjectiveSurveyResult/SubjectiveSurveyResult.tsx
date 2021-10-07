@@ -13,12 +13,17 @@ export function SubjectiveSurveyResult({
 }: SubjectiveSurveyResultProps) {
 	return (
 		<Wrapper>
-			{title}
+			<h1>{title}</h1>
 			{responses.map(response => (
-				<div>{response}</div>
+				<Result>{response}</Result>
 			))}
 		</Wrapper>
 	);
 }
 
 const Wrapper = styled.div``;
+
+const Result = styled.div`
+	font-size: 2rem;
+	border: 5px solid black;
+`;

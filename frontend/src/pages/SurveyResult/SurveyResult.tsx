@@ -10,10 +10,7 @@ interface keyParams {
 }
 
 export function SurveyResult() {
-	const [title, setTitle] = useState("");
-	const [endDate, setEndDate] = useState("");
 	const [questions, setQuestions] = useState([]);
-	const [respondents, setRespondents] = useState([]);
 	const [responses, setResponses] = useState([]);
 
 	const surlockCA = surLock.smart_contract.ca;
@@ -38,17 +35,8 @@ export function SurveyResult() {
 					surLock.smart_contract.abi,
 					infuraProvider,
 				);
-				const { title, endDate, questions, respondents, responses } =
-					await contract.getSurvey(surveyKey);
-				console.log(title);
-				console.log(endDate);
-				console.log(questions);
-				console.log(respondents);
-				console.log(responses);
-				setTitle(title);
-				setEndDate(endDate);
+				const { questions, responses } = await contract.getSurvey(surveyKey);
 				setQuestions(questions);
-				setRespondents(respondents);
 				setResponses(responses);
 			} catch (err) {
 				console.log("Error: ", err);
@@ -58,7 +46,7 @@ export function SurveyResult() {
 
 	if (!questions) return <></>;
 	return (
-		<>
+		<Wrapper>
 			{questions.map((question: any, idx) => {
 				if (question.qType === "select") {
 					const data = {
@@ -91,6 +79,11 @@ export function SurveyResult() {
 				}
 				return <></>;
 			})}
-		</>
+		</Wrapper>
 	);
 }
+
+const Wrapper = styled.div`
+	width: 60%;
+	${({ theme: { display } }) => display.flexRow()}
+`;
