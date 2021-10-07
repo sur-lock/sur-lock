@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Typography, Spin } from "antd";
-
-const { Title } = Typography;
+import { Spin } from "antd";
 
 export function FullscreenSpinner() {
 	return (
