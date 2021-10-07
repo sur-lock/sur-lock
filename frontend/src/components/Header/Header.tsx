@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useAppSelector, useAppDispatch, setUser } from "store";
-import { kakaoLoginSmall } from "static/image";
+import { kakaoLoginSmall, surlockLogoBg } from "static/image";
 import { ThemeToggle } from "../ThemeToggle";
 
 interface HeaderProps {
@@ -72,7 +72,9 @@ export function Header({ switchTheme }: HeaderProps) {
 		<Wrapper>
 			<div className="header-inner">
 				<Link to="/">
-					<div className="logo">설록</div>
+					<div className="logo">
+						<img width="120" height="120" src={surlockLogoBg} alt="logo" />
+					</div>
 				</Link>
 				<nav>
 					<ul>

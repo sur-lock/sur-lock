@@ -11,6 +11,10 @@ import afterjangdongkyun from "./afterjangdongkyun.png";
 import writingman from "./writingman.jpg";
 import background from "./background.png";
 import kakaoLoginSmall from "./kakao_login_small.png";
+import surlockLogoBgWhite from "./surlock-logo-bg-white.png";
+import surlockLogoWhite from "./surlock-logo-white.png";
+import surlockLogoBg from "./surlock-logo-bg.png";
+import surlockLogo from "./surlock-logo.png";
 
 export {
 	shinjoohwan,
@@ -26,4 +30,8 @@ export {
 	writingman,
 	background,
 	kakaoLoginSmall,
+	surlockLogoBgWhite,
+	surlockLogoBg,
+	surlockLogoWhite,
+	surlockLogo,
 };
