@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { ethers } from "ethers";
 import { useParams } from "react-router-dom";
+import { PieChartForSelect } from "components";
 import surLock from "../../api/blockchain-metadata.json";
 
 interface keyParams {
@@ -57,11 +58,31 @@ export function SurveyResult() {
 
 	return (
 		<>
-			{title}
-			{endDate}
-			{questions}
-			{respondents}
-			{responses}
+			{questions.map((question: any, idx) => {
+				if (question.qType === "select") {
+					const data = {
+						qType: question.qType,
+						title: question.title,
+						options: question.options,
+						responses: question.responses.map((response: any) =>
+							Number(response[idx - 1]),
+						),
+					};
+					return <PieChartForSelect data={data} />;
+				}
+				return <></>;
+
+				// if (question.qType === "select") {
+				// 	const questionData =
+				// 	{
+				// 		qType: question.qType
+				// 		title: question.title,
+				// 		options: question.options,
+				// 		responses: question.responses.map(response => Number(response[idx - 1]))
+				// 	};
+				// 	<PieChartForSelect data={questionData} />
+				// }
+			})}
 		</>
 	);
 }

@@ -10,3 +10,5 @@ export * from "./SurveyTitle";
 export * from "./ThemeToggle";
 export * from "./Response";
 export * from "./FullscreenSpinner";
+export * from "./SubjectiveSurveyResult";
+export * from "./PieChartForSelect";

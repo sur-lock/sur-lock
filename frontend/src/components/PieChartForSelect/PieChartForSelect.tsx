@@ -81,8 +81,8 @@ const renderLegend = (props: any) => {
 interface SelectQuestion {
 	qType: string;
 	title: string;
-	options: [string];
-	responses: [number];
+	options: string[];
+	responses: number[];
 }
 
 interface PieChartForSelectProps {
