@@ -50,4 +50,8 @@ const Result = styled.div`
 	padding: 20px;
 	margin-bottom: 50px;
 	overflow: hidden;
+
+	:hover {
+		height: 100%;
+	}
 `;
