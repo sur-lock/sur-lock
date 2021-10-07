@@ -5,6 +5,7 @@ import {
 	ResponseOptionWithImg,
 	ResponseAnswer,
 	ResponseAnswerWithImg,
+	FullscreenSpinner,
 } from "components";
 import { RightOutlined, UploadOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
@@ -21,6 +22,7 @@ interface keyParams {
 }
 
 export function ResponseSurvey() {
+	const [isLoading, setIsLoading] = useState(false);
 	const [data, setData] = useState({
 		title: "",
 		creator: "",
@@ -91,6 +93,8 @@ export function ResponseSurvey() {
 				return;
 			}
 
+			setIsLoading(true);
+
 			const transaction = await contract.addResponse(
 				String(id),
 				surveyKey,
@@ -98,6 +102,8 @@ export function ResponseSurvey() {
 			);
 
 			await transaction.wait();
+
+			setIsLoading(false);
 
 			alert("설문에 참여해 주셔서 감사합니다.");
 			history.push("/");
@@ -169,20 +175,23 @@ export function ResponseSurvey() {
 	};
 
 	return (
-		<CardContainer>
-			<Questions>
-				<Title>{data.title}</Title>
-				{renderSurveys()}
-			</Questions>
-			<Fab icon="+">
-				<Action text="제출" onClick={onSubmitSurvey}>
-					<UploadOutlined />
-				</Action>
-				<Action text="결과보기" onClick={moveToResult}>
-					<RightOutlined />
-				</Action>
-			</Fab>
-		</CardContainer>
+		<>
+			<CardContainer>
+				<Questions>
+					<Title>{data.title}</Title>
+					{renderSurveys()}
+				</Questions>
+				<Fab icon="+">
+					<Action text="제출" onClick={onSubmitSurvey}>
+						<UploadOutlined />
+					</Action>
+					<Action text="결과보기" onClick={moveToResult}>
+						<RightOutlined />
+					</Action>
+				</Fab>
+			</CardContainer>
+			{isLoading && <FullscreenSpinner />}
+		</>
 	);
 }
 
