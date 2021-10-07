@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import "antd/dist/antd.css";
 import { Card } from "antd";
 import "react-tiny-fab/dist/styles.css";
@@ -21,7 +21,9 @@ export function CreateComplete() {
 			<br />
 			<br />
 			<br />
-			<Link to={location.state.SurveyURL}>{location.state.SurveyURL}</Link>
+			<Anchor href={location.state.SurveyURL}>
+				{location.state.SurveyURL}
+			</Anchor>
 		</SurveyForm>
 	);
 }
