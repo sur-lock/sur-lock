@@ -9,10 +9,13 @@ export function FullscreenSpinner() {
 		<Wrapper>
 			<Spin size="large" />
 			<span className="loadingContent">
-				설문조사를 생성하거나, 응답을 제출하는 것은
+				지금, 투명한 설문을 블록에 담고 있어요!
 			</span>
 			<span className="loadingContent">
-				<span className="bold">약 10초에서 2분</span>이 소요됩니다.
+				전세계의 블록체인에 기록되기 위해 잠시만 기다려주세요.
+			</span>
+			<span className="loadingContent">
+				이 과정은 약 <span className="bold">15초에서 30초</span> 소요됩니다.
 			</span>
 		</Wrapper>
 	);
