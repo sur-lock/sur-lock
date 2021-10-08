@@ -98,7 +98,7 @@ export function PieChartForSelect({ data }: PieChartForSelectProps) {
 	}));
 
 	data.responses.forEach(entry => {
-		if (chartdata[entry] && chartdata[entry].value) {
+		if (chartdata[entry]) {
 			chartdata[entry].value += 1;
 		}
 	});
