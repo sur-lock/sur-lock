@@ -98,7 +98,9 @@ export function PieChartForSelect({ data }: PieChartForSelectProps) {
 	}));
 
 	data.responses.forEach(entry => {
-		chartdata[entry].value += 1;
+		if (chartdata[entry] && chartdata[entry].value) {
+			chartdata[entry].value += 1;
+		}
 	});
 
 	const CustomTooltip = ({ active, payload }: any) => {
