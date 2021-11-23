@@ -12,7 +12,7 @@
 
 ## Demo
 
-[SURLOCK HOMEPAGE](http://j5a501.p.ssafy.io/)
+[~~SURLOCK HOMEPAGE~~(데모종료)](http://j5a501.p.ssafy.io/)
 
 [DEMO VIDEO](https://drive.google.com/file/d/1ezILafpfyDOOi3jL9Fm4wnbUl5qxfBbd/view?usp=sharing)
 
