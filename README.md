@@ -45,5 +45,5 @@
 - 이채하 : Leader, BE
 - 김주형 : Blockchain
 - 신주환 : FE
-- 장동균 : 
+- 장동균 : FE
 - 장민호 : BE, Blockchain
